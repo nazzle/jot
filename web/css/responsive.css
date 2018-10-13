@@ -1,0 +1,1008 @@
+/* Medium Layout: 1280px. */
+@media only screen and (min-width: 992px) and (max-width: 1200px) { 
+.social-icons a {
+    margin-right: 20px;
+}
+.attorneys-profile-big-bg:before,.attorneys-profile-big-bg:after {
+    display: none;
+}
+.faq-description {
+    margin-left: 10px;
+}
+.single-faq:before{
+    right: -31px;
+} 
+.single-faq:after{
+    right: -31px;
+}
+.social-icons {
+    text-align: left;
+}
+
+.search-area input[type="text"] {
+    width: 70%;
+}
+
+.search-box {
+    text-align: left;
+}
+
+.main-menu li a {
+    padding: 30px 15px;
+}
+
+.main-menu li:first-child:before {
+    top: 28%;
+}
+.section-title h2 {
+    font-size: 30px;
+}
+.single-service {
+    height: 470px;
+}
+
+.service-description {
+    padding-left: 80px;
+}
+
+.service-description p {
+    line-height: 25px;
+}
+
+.service-description {
+    padding-left: 80px;
+}
+
+.service-description p {
+    line-height: 25px;
+}
+
+.service-description a.read-more-btn {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.service-description a.read-more-btn:before {
+    left: 55px;
+}
+
+.service-description a.read-more-btn:after {
+    left: 45px;
+}
+.single-counter a {
+    left: -70px;
+}
+
+.single-counter {
+    padding-left: 110px;
+}
+
+.single-counter span {
+    font-size: 40px;
+}
+
+.single-counter h4 {
+    font-size: 24px;
+}
+p.section-text {
+    font-size: 16px;
+    margin-top: 35px;
+}
+.testimonial-description {
+    padding: 25px;
+}
+
+.testimonial-description p i {
+    margin-left: -15px;
+}
+
+.testimonial-bg {
+    width: 80px;
+    height: 80px;
+    bottom: -20px;
+    left: 60px;
+}
+.cta-description p {
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.cta-btn-wrapper {
+    margin-top: 10px;
+}
+.overlays {
+    line-height: 25px;
+    font-size: 15px;
+}
+
+.our-single-practice a.read-more-btn {
+    font-size: 18px;
+}
+
+.our-single-practice a.read-more-btn:before {
+    left: 40px;
+}
+
+.our-single-practice a.read-more-btn:after {
+    left: 30px;
+}
+.fancy-content p {
+    font-size: 18px;
+    line-height: 30px;
+}
+.blog-features-inner {
+    padding: 20px 10px;
+}
+.footer-area p {
+    font-size: 14px;
+}
+
+.footer-logo {
+    padding: 0 40px;
+}
+
+.footer-social-icons a {
+    margin-right: 15px;
+}
+.attorneys-contact-information {
+    margin-top: 0;
+    width: 100%;
+    float: none;
+}
+
+.attorneys-profile-big-bg {
+    float: none;
+    width: 100%;
+}
+
+.attorneys-profile-big-bg img {
+    margin: 0 auto;
+    display: block;
+}
+.attorneys-contact-information .attorneys-all-link-info {
+    margin: 0;
+    float: none;
+    text-align: center;
+    padding-left: 0;
+    padding-top: 55px;
+}
+
+.attorneys-contact-information .attorneys-name-social-icons {
+    float: none;
+    text-align: center;
+}
+
+.attorneys-name-social-icons p:before {
+    left: 50%;
+    margin-left: -26px;
+}
+	
+section.twitter_update_area::before {
+	display: none;
+}	
+	
+section.twitter_update_area::after {
+	display: none;
+}	
+.twitter_update_area .twitter_icon::after {
+	display: none;
+}	
+	
+	
+	
+} /*end*/
+
+/* Tablet Layout: 768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) { 
+.attorneys-contact-information .attorneys-all-link-info {
+    margin: 0;
+    float: none;
+    text-align: center;
+    padding-left: 0;
+    padding-top: 55px;
+}
+
+.attorneys-contact-information .attorneys-name-social-icons {
+    float: none;
+    text-align: center;
+}
+
+.attorneys-name-social-icons p:before {
+    left: 50%;
+    margin-left: -26px;
+}
+.attorneys-profile-big-bg:before,.attorneys-profile-big-bg:after {
+    display: none;
+}
+.footer-social-icons,.news-letter-area {
+    margin-bottom: 50px;
+}
+.footer-logo {
+    text-align: center;
+    margin-top: 20px;
+}
+ .email,.phone {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.fancy-content p {
+    font-size: 18px;
+    line-height: 30px;
+}
+.social-icons,.search-box {
+    text-align: center;
+}
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main-menu {
+    text-align: left;
+}
+
+.main-menu li a {
+    padding: 10px 15px;
+}
+.slide-item-wrapper h2 {
+    font-size: 30px;
+    line-height: 50px;
+}
+.faq-area-inner {
+    position: static;
+}
+
+.single-faq {
+    position: static;
+    margin-bottom: 30px;
+}
+
+.single-faq:before,.single-faq:after {
+    background: transparent;
+    width: 0;
+    height: 0;
+    display: none;
+}
+.faq-icon a {
+    z-index: 1;
+}
+.single-service {
+    height: 470px;
+    margin-bottom: 80px;
+}
+
+.single-services {
+    margin-left: 80px;
+    margin-right: 80px;
+}
+.service-description a.read-more-btn:before {
+    left: 253px;
+}
+
+.service-description a.read-more-btn:after {
+    left: 243px;
+}
+.lawyer-bg {
+    display: none;
+}
+
+.single-counter {
+    padding-left: 20px;
+    text-align: center;
+    margin-bottom: 90px;
+}
+
+.single-counter a {
+    left: 50px;
+    top: 23px;
+}
+
+.counter-area {
+    padding: 80px 0;
+}
+.testimonial-carousel {
+    margin-bottom: 70px;
+}
+.cta-description,.cta-btn-wrapper {
+    text-align: center;
+}
+.our-single-practice-wrapper {
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.our-single-practice {
+    margin-bottom: 80px;
+}
+
+.our-single-practice a.read-more-btn:before {
+    left: 245px;
+}
+
+.our-single-practice a.read-more-btn:after {
+    left: 235px;
+}
+.blog-wrapper-area {
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.single-blog {
+    margin-bottom: 80px;
+}
+.section-padding {
+    padding: 60px 0;
+}
+.section-padding.blog-area {
+    padding-bottom: 90px;
+}
+.clients-carousel .owl-prev {
+    left: 0;
+} 
+.clients-carousel .owl-next {
+    right: 0;
+}
+.single-post-meta:last-child {
+    margin-bottom: 40px;
+}
+.attorneys-contact-information {
+    margin-top: 0;
+    width: 100%;
+    float: none;
+}
+
+.attorneys-profile-big-bg {
+    float: none;
+    width: 100%;
+}
+
+.attorneys-profile-big-bg img {
+    margin: 0 auto;
+    display: block;
+}
+.attorneys-contact-information .attorneys-all-link-info:before {
+    display: none;
+}
+.slicknav_menu {
+    display: none;
+}
+section.twitter_update_area:before, section.twitter_update_area:after, .twitter_text:before, .twitter_text:after, .twitter_icon:after {
+	display: none;
+}
+} /*end*/
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px) { 
+.main-menu ul {
+    display: none;
+}
+.attorneys-all-link-info p {
+    font-size: 14px;
+}
+
+.attorneys-all-link-info p i {
+    margin-right: 10px;
+}
+.attorneys-contact-information .attorneys-all-link-info {
+    margin: 0;
+    float: none;
+    text-align: center;
+    padding-left: 0;
+    padding-top: 55px;
+}
+
+.attorneys-contact-information .attorneys-name-social-icons {
+    float: none;
+    text-align: center;
+}
+
+.attorneys-name-social-icons p:before {
+    left: 50%;
+    margin-left: -26px;
+}
+.attorneys-profile-big-bg:before,.attorneys-profile-big-bg:after {
+    display: none;
+}
+.practice-image-social-date-area .social-area {
+    float: none;
+    text-align: center;
+}
+
+.practice-image-social-date-area span.date {
+    float: none;
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+}
+.single-post-meta:last-child {
+    margin-bottom: 40px;
+}
+.single-counter a {
+    left: 30px;
+}
+.m30 {
+    height: 0px;
+}
+.single-counter span {
+    font-size: 40px;
+}
+
+.single-counter h4 {
+    font-size: 24px;
+}
+.lawyer-bg {
+    display: none;
+}
+.single-service {
+    height: 470px; 
+    margin-bottom: 80px;
+}
+.slide-item-wrapper h2 {
+    font-size: 28px;
+    text-align: center;
+    line-height: 35px;
+}
+
+.slide-item-wrapper a {
+    margin: 0;
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 0px;
+    margin-left: 30px;
+}
+.email, .phone, .social-icons,.search-box {
+    text-align: center;
+    margin: 10px 0;
+}
+.footer-logo {
+    text-align: center;
+    margin-top: 20px;
+}
+.section-padding {
+    padding: 60px 0;
+}
+.testimonial-carousel {
+    margin-bottom: 70px;
+}
+.faq-area-inner {
+    position: static;
+}
+
+.single-faq {
+    position: static;
+    margin-bottom: 30px;
+}
+
+.single-faq:before,.single-faq:after {
+    background: transparent;
+    width: 0;
+    height: 0;
+    display: none;
+}
+.faq-icon a {
+    z-index: 1;
+} 
+.cta-description,.cta-btn-wrapper {
+    text-align: center;
+} 
+.section-padding.blog-area {
+    padding-bottom: 90px;
+}
+.section-title h2 {
+    font-size: 25px;
+}
+.single-counter {
+    padding-left: 10px;
+    text-align: right;
+    margin-bottom: 50px;
+}
+.service-description a.read-more-btn:before {
+    left: 60px;
+}
+
+.service-description a.read-more-btn:after {
+    left: 50px;
+}
+.testimonial-content {
+    padding-left: 0;
+}
+
+.testimonial-bg {
+    width: 80px;
+    height: 80px;
+    bottom: 0px;
+}
+
+.testimonial-carousel
+ .owl-controls .owl-dots {
+    margin-top: -40px;
+}
+
+.cta-description {
+    padding: 0;
+}
+
+.cta-description:before,.cta-description:after {
+    display: none;
+}
+.our-single-practice {
+    margin-bottom: 80px;
+}
+.fancy-content {
+    padding: 10px;
+}
+
+.fancy-content p {
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.blog-features-inner {padding: 15px 0;}
+
+.single-blog {
+    margin-bottom: 70px;
+}
+
+.single-blog-description a {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.our-single-practice a.read-more-btn:before {
+    left: 65px;
+}
+
+.our-single-practice a.read-more-btn:after {
+    left: 55px;
+}
+.footer-social-icons,.news-letter-area {
+    margin-bottom: 50px;
+}
+.clients-carousel .owl-prev {
+    left: 0;
+} 
+.clients-carousel .owl-next {
+    right: 0;
+}
+.our-single-practice.practice-bg-3 {
+    margin-bottom: 0;
+}
+.slide-btn {
+    text-align: center;
+}
+.slide-btn a {
+    margin: 0 4px;
+}
+.slide-item-wrapper h2 {
+    font-size: 22px;
+}
+.special-test-description-wrapper {
+    margin: 30px 20px;
+}
+.email-box input {
+    width: 88%;
+}
+.email-box input:focus {
+    outline: none;
+}
+.attorneys-contact-information {
+    margin-top: 0;
+    width: 100%;
+    float: none;
+}
+
+.attorneys-profile-big-bg {
+    float: none;
+    width: 100%;
+}
+
+.attorneys-profile-big-bg img {
+    margin: 0 auto;
+    display: block;
+}
+.attorneys-contact-information .attorneys-all-link-info:before {
+    display: none;
+}
+.education-icon:before {
+    display: none;
+}
+.education-desciption h3 {
+    font-size: 20px;
+}
+.fan-faqt-counter {
+    margin-top: 30px;
+}
+.slicknav_menu {
+    display: block;
+}
+/*Slick nav mobile menu customize*/
+div#mobile-menu-wrap {
+    position: fixed;
+    z-index: 9;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.slicknav_btn {
+    background: #F26522;
+}
+
+.slicknav_nav a {
+    text-transform: capitalize;
+    font-size: 20px;
+    transition: .3s;
+    color: #000;
+}
+
+.slicknav_nav a:hover {
+    border-radius: 0px;
+    background: transparent;
+    color: #F26522;
+}
+
+.slicknav_menu {
+    background: #F2F2F2;
+}
+/*Slick nav mobile menu customize end*/
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.header-top {
+    padding-top: 60px;
+}
+	
+.service-description p {
+	font-size: 14px;
+	line-height: 22px;
+}
+.service-description a.read-more-btn {
+	font-size: 14px;
+}
+.service-description a.read-more-btn:before, .service-description a.read-more-btn:after {
+	display: none;
+}
+.our-single-practice a.read-more-btn {
+	font-size: 14px;
+}
+.our-single-practice a.read-more-btn:before, .our-single-practice a.read-more-btn:after {
+	display: none;
+}
+.our-single-practice .description p {
+	font-size: 14px;
+	line-height: 24px;
+}
+section.twitter_update_area:before, section.twitter_update_area:after, .twitter_text:before, .twitter_text:after, .twitter_icon:after {
+	display: none;
+}
+.twitter_update_area .twitter_icon {
+	display: block;
+	text-align: center;
+}
+p.twitter_description {
+	text-align: center;
+}
+.education-desciption {
+	float: right;
+}
+	
+} /*end*/
+
+/* Wide Mobile Layout: 480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+.main-menu ul {
+    display: none;
+}
+.attorneys-all-link-info p {
+    font-size: 14px;
+}
+
+.attorneys-all-link-info p i {
+    margin-right: 10px;
+}
+.attorneys-contact-information .attorneys-all-link-info {
+    margin: 0;
+    float: none;
+    text-align: center;
+    padding-left: 0;
+    padding-top: 55px;
+}
+
+.attorneys-contact-information .attorneys-name-social-icons {
+    float: none;
+    text-align: center;
+}
+
+.attorneys-name-social-icons p:before {
+    left: 50%;
+    margin-left: -26px;
+}
+.attorneys-profile-big-bg:before,.attorneys-profile-big-bg:after {
+    display: none;
+}
+.practice-image-social-date-area .social-area {
+    float: none;
+    text-align: center;
+}
+
+.practice-image-social-date-area span.date {
+    float: none;
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+}
+.single-post-meta:last-child {
+    margin-bottom: 40px;
+}
+.single-counter a {
+    left: 30px;
+}
+.m30 {
+    height: 0px;
+}
+.single-counter span {
+    font-size: 40px;
+}
+
+.single-counter h4 {
+    font-size: 24px;
+}
+.lawyer-bg {
+    display: none;
+}
+.single-service {
+    height: 470px; 
+    margin-bottom: 80px;
+}
+.slide-item-wrapper h2 {
+    font-size: 28px;
+    text-align: center;
+    line-height: 35px;
+}
+
+.slide-item-wrapper a {
+    margin: 0;
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 0px;
+    margin-left: 30px;
+}
+.email, .phone, .social-icons,.search-box {
+    text-align: center;
+    margin: 10px 0;
+}
+.footer-logo {
+    text-align: center;
+    margin-top: 20px;
+}
+.section-padding {
+    padding: 60px 0;
+}
+.testimonial-carousel {
+    margin-bottom: 70px;
+}
+.faq-area-inner {
+    position: static;
+}
+
+.single-faq {
+    position: static;
+    margin-bottom: 30px;
+}
+
+.single-faq:before,.single-faq:after {
+    background: transparent;
+    width: 0;
+    height: 0;
+    display: none;
+}
+.faq-icon a {
+    z-index: 1;
+} 
+.cta-description,.cta-btn-wrapper {
+    text-align: center;
+} 
+.section-padding.blog-area {
+    padding-bottom: 90px;
+}
+.section-title h2 {
+    font-size: 25px;
+}
+.single-counter {
+    padding-left: 10px;
+    text-align: right;
+    margin-bottom: 50px;
+}
+.service-description a.read-more-btn:before {
+    left: 60px;
+}
+
+.service-description a.read-more-btn:after {
+    left: 50px;
+}
+.testimonial-content {
+    padding-left: 0;
+}
+
+.testimonial-bg {
+    width: 80px;
+    height: 80px;
+    bottom: 0px;
+}
+
+.testimonial-carousel
+ .owl-controls .owl-dots {
+    margin-top: -40px;
+}
+
+.cta-description {
+    padding: 0;
+}
+
+.cta-description:before,.cta-description:after {
+    display: none;
+}
+.our-single-practice {
+    margin-bottom: 80px;
+}
+.fancy-content {
+    padding: 10px;
+}
+
+.fancy-content p {
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.blog-features-inner {padding: 15px 0;}
+
+.single-blog {
+    margin-bottom: 70px;
+}
+
+.single-blog-description a {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.our-single-practice a.read-more-btn:before {
+    left: 65px;
+}
+
+.our-single-practice a.read-more-btn:after {
+    left: 55px;
+}
+.footer-social-icons,.news-letter-area {
+    margin-bottom: 50px;
+}
+.clients-carousel .owl-prev {
+    left: 0;
+} 
+.clients-carousel .owl-next {
+    right: 0;
+}
+.our-single-practice.practice-bg-3 {
+    margin-bottom: 0;
+}
+.slide-btn {
+    text-align: center;
+}
+.slide-btn a {
+    margin: 0 4px;
+}
+.slide-item-wrapper h2 {
+    font-size: 22px;
+}
+.special-test-description-wrapper {
+    margin: 30px 20px;
+}
+.email-box input {
+    width: 88%;
+}
+.email-box input:focus {
+    outline: none;
+}
+.attorneys-contact-information {
+    margin-top: 0;
+    width: 100%;
+    float: none;
+}
+
+.attorneys-profile-big-bg {
+    float: none;
+    width: 100%;
+}
+
+.attorneys-profile-big-bg img {
+    margin: 0 auto;
+    display: block;
+}
+.attorneys-contact-information .attorneys-all-link-info:before {
+    display: none;
+}
+.education-icon:before {
+    display: none;
+}
+.education-desciption h3 {
+    font-size: 20px;
+}
+.fan-faqt-counter {
+    margin-top: 30px;
+}
+.slicknav_menu {
+    display: block;
+}
+/*Slick nav mobile menu customize*/
+div#mobile-menu-wrap {
+    position: fixed;
+    z-index: 9;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.slicknav_btn {
+    background: #F26522;
+}
+
+.slicknav_nav a {
+    text-transform: capitalize;
+    font-size: 20px;
+    transition: .3s;
+    color: #000;
+}
+
+.slicknav_nav a:hover {
+    border-radius: 0px;
+    background: transparent;
+    color: #F26522;
+}
+
+.slicknav_menu {
+    background: #F2F2F2;
+}
+/*Slick nav mobile menu customize end*/
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.header-top {
+    padding-top: 60px;
+}
+	
+.service-description p {
+	font-size: 14px;
+	line-height: 22px;
+}
+.service-description a.read-more-btn {
+	font-size: 14px;
+}
+.service-description a.read-more-btn:before, .service-description a.read-more-btn:after {
+	display: none;
+}
+.our-single-practice a.read-more-btn {
+	font-size: 14px;
+}
+.our-single-practice a.read-more-btn:before, .our-single-practice a.read-more-btn:after {
+	display: none;
+}
+.our-single-practice .description p {
+	font-size: 14px;
+	line-height: 24px;
+}
+section.twitter_update_area:before, section.twitter_update_area:after, .twitter_text:before, .twitter_text:after, .twitter_icon:after {
+	display: none;
+}
+.twitter_update_area .twitter_icon {
+	display: block;
+	text-align: center;
+}
+p.twitter_description {
+	text-align: center;
+}
+.education-desciption {
+	float: right;
+}
+	
+} /*end*/
