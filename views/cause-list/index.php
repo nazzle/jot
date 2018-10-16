@@ -10,9 +10,9 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', 'Cause Lists');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cause-list-index">
+<div class="container">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>

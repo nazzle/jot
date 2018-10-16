@@ -10,9 +10,9 @@ $this->title = Yii::t('app', 'Create Divisions');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Divisions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="divisions-create">
+<div class="container">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <?= $this->render('_form', [
         'model' => $model,

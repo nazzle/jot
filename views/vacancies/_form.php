@@ -16,14 +16,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'duties')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'type')->dropDownList([ 'PART-TIME' => 'PART-TIME', 'FULL-TIME' => 'FULL-TIME', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'type')->dropDownList([ 'PART-TIME' => 'PART-TIME', 'FULL-TIME' => 'FULL-TIME', ], ['prompt' => 'Select job type']) ?>
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'posted_by')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', '<span class="fa fa-reply"></span> Publish'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

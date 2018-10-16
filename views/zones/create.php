@@ -10,9 +10,9 @@ $this->title = Yii::t('app', 'Create Zones');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Zones'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="zones-create">
+<div class="container">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <?= $this->render('_form', [
         'model' => $model,

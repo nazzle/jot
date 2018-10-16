@@ -11,10 +11,11 @@ $this->title = Yii::t('app', 'Posts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="posts-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <div class="container">
+    <h2><?= Html::encode($this->title) ?></h2>
     <p>
         <?= Html::a(Yii::t('app', 'Create Posts'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+           // 'id',
             'attachment',
             'title',
             'descriptions:ntext',
@@ -35,4 +36,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    </div>
 </div>

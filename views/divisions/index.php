@@ -10,9 +10,9 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', 'Divisions');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="divisions-index">
+<div class="container">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'zone_id',
             'division',
 

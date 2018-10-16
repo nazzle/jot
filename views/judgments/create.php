@@ -10,9 +10,9 @@ $this->title = Yii::t('app', 'Create Judgments');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Judgments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="judgments-create">
+<div class="container">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -75,6 +75,11 @@ $config = [
           'class'=>'app\components\CheckIfLoggedIn',  
         ],
     'params' => $params,
+    'modules' => [
+        'jdu' => [
+            'class' => 'app\modules\jdu\Jdu',
+        ]
+    ],
 ];
 
 if (YII_ENV_DEV) {

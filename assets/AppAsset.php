@@ -24,6 +24,10 @@ class AppAsset extends AssetBundle
         'css/bootstrap.min.css',
         'css/icomoon-social.css',
        // 'http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800',
+        'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css',
+        'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
+        'css/AdminLTE.min.css',
+        'css/_all-skins.min.css',
         'css/leaflet.css',
         'css/main.css',
         'css/style.css',
@@ -48,7 +52,11 @@ class AppAsset extends AssetBundle
        // 'http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js',
         'js/jquery.counterup.min.js',
         'js/jquery.slicknav.min.js',
-        'js/active.js'
+        'js/active.js',
+        //'js/jQuery-2.1.4.min.js',
+        'js/fastclick.min.js',
+        'js/app.min.js',
+        'js/demo.js'
 
     ];
     public $depends = [

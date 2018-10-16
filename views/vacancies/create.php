@@ -10,9 +10,9 @@ $this->title = Yii::t('app', 'Create Vacancies');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Vacancies'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="vacancies-create">
+<div class="container">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <?= $this->render('_form', [
         'model' => $model,

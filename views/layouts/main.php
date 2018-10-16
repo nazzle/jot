@@ -23,6 +23,7 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link rel="shortcut icon" href="<?= Yii::$app->params['rootPath']; ?>/favicon(1).ico" type="image/x-icon" />
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -192,6 +193,7 @@ AppAsset::register($this);
                                             <li><a href="page-products-4-columns.html">Advocates</a></li>
                                             <li><a href="page-products-4-columns.html">Feedback</a></li>
                                             <li><a href="page-products-4-columns.html">Connect With Us</a></li>
+                                            <li><a href="<?= Url::to(['site/management'])?>"><?= Yii::t('app', 'Management (Auth.)'); ?></a></li>
                                         </ul>
                                     </div>
                                 </div><!-- /mainmenu-submenu-inner -->
@@ -210,9 +212,9 @@ AppAsset::register($this);
 </div>
 <div class="flag-color3">
 </div>       
-        <!-- <?= Breadcrumbs::widget([
+        <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?> -->
+        ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
 <!-- <footer class="footer"> -->

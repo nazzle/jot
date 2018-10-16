@@ -62,7 +62,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('management');
     }
 
     /**
@@ -88,6 +88,16 @@ class SiteController extends Controller
     public function actionStatistics()
     {
         return $this->render('statistics');
+    }
+
+    /**
+     * This displays the page for administration.
+     *
+     * @return string
+     */
+    public function actionManagement()
+    {
+        return $this->render('management');
     }
 
     /**

@@ -67,7 +67,7 @@ class UserResponsesController extends Controller
         $model = new UserResponses();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['site/home']);
         }
 
         return $this->render('create', [
