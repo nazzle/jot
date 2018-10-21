@@ -3,6 +3,7 @@
 use yii\grid\GridView;
 use yii\helpers\Html;
 use app\models\Posts;
+use app\models\UsefulAttachments;
 use yii\helpers\Url;
 use app\models\UserResponses;
 use kartik\widgets\ActiveForm;
@@ -18,35 +19,23 @@ $this->title = 'Judiciary of Tanzania | Home';
         <div class="homepage-slider">
             <div id="sequence">
                 <ul class="sequence-canvas">
-                    <!-- Slide 1 -->
-                    <li class="bg4">
-                        <!-- Slide Title -->
-                        <h5 class="title">MAKAMU WA RAIS AHUDHURIA SHEREHE YA KUAPISHWA MAJAJI WATEULE WA MAHAKAMA YA AFRIKA:</h5>
-                        <!-- Slide Text -->
-                        <h3 class="subtitle">Makamu wa Rais wa Jamhuri ya Muungano wa Tanzania, Mhe. Samia Suluhu Hassan akizungumza katika hafla hiyo ya Uapisho ilifanyika Agosti, 27,2018 katika Ofisi za Mahakama ya Afrika na Haki za Binadamu na Watu zilizopo mkoani Arusha.</h3>
-                        <!-- Slide Image -->
-                        <img class="slide-img" src="img/homepage-slider/makamu.jpg" alt="Slide 1" />
-                    </li>
-                    <!-- End Slide 1 -->
-                    <!-- Slide 2 -->
-                    <li class="bg3">
-                        <!-- Slide Title -->
-                        <h5 class="title">JAJI MKUU WA TANZANIA ATEMBELEWA NA WAKILI MKUU WA SERIKALI AGOSTI, 23, 2018:</h5>
-                        <!-- Slide Text -->
-                        <h3 class="subtitle">Pichani ni Jaji Mkuu wa Tanzania, Mhe. Prof. Ibrahim Hamis Juma (kulia) akizungumza jambo na Wakili Mkuu wa Serikali, Dkt. Julius Mashamba (katikati), kushoto ni Naibu Wakili Mkuu wa Serikali, Dkt. Ally Possi, katika mazungumzo hayo Mhe. Jaji Mkuu ameahidi kuwapa ushirikiano katika utendaji kazi.!</h3>
-                        <!-- Slide Image -->
-                        <img class="slide-img" src="img/homepage-slider/Jaji.jpg" alt="Slide 2" />
-                    </li>
-                    <!-- End Slide 2 -->
-                    <!-- Slide 3 -->
-                    <li class="bg1">
-                        <!-- Slide Title -->
-                        <h2 class="title">JAJI Mhe. ILVIN MUGETA AKIZUNGUMZA NA WANANCHI</h2>
-                        <!-- Slide Text -->
-                        <h3 class="subtitle">Jaji wa Mahakama Kuu ya Tanzania, Kanda ya Dar es Salaam, Mhe. Ilvin Mugeta akizungumza na wananchi (hawapo pichani) Agosti 29, wakati wa uzinduzi rasmi wa programu maalum ya Kanda hiyo ya kuzungumza na wateja wake.</h3>
-                        <!-- Slide Image -->
-                        <img class="slide-img" src="img/homepage-slider/mugeta.jpg" alt="Slide 3" />
-                    </li>
+                    <!-- Slide 3 --> 
+                    <?php                         
+                              $slides = Posts::find()->all();
+                                if(!empty($slides))
+                                {
+                                    foreach($slides as $slide)
+                                    {
+                                        echo 
+                            '<li class="bg1">
+                                <!-- Slide Title -->
+                                <h2 class="title">'.$slide['title'].'</h2>
+                                <!-- Slide Text -->
+                                <h3 class="subtitle">'.$slide['descriptions'].'</h3>
+                                <!-- Slide Image -->
+                                <img class="slide-img" src="'.$slide['attachment'].'" alt="Slide 3" />
+                            </li>'; }} ?>
+
                     <!-- End Slide 3 -->
                 </ul>
                 <div class="sequence-pagination-wrapper">
@@ -63,7 +52,7 @@ $this->title = 'Judiciary of Tanzania | Home';
         <!-- Dashboard section -->
         <div class="section">
             <div class="container">
-                <h2>Dashboard section (News and Hints)</h2>
+                <h2>News and Events</h2>
                     <div class="row">
                           <?php
                           $posts = new Posts;                          
@@ -77,7 +66,7 @@ $this->title = 'Judiciary of Tanzania | Home';
                                         '<div class="row service-wrapper-row">
                                         <div class="col-sm-4">
                                             <div class="service-image">
-                                                <img src="img/services1.jpg" alt="Service Name">
+                                                <img src="'.$row['attachment'].'" alt="News Photo">
                                             </div>
                                         </div>
                                         <div class="col-sm-8">
@@ -101,7 +90,7 @@ $this->title = 'Judiciary of Tanzania | Home';
                     </div>
                     <div class="col-md-12">
                         <div class="calltoaction-wrapper">
-                            <h3><?= Yii::t('db','Click here to view all') ?></h3> <a href="http://www.dragdropsite.com" class="btn btn-orange">Read More!</a>
+                            <h3><?= Yii::t('db','To view all news and events'); ?></h3> <a href="#" class="btn btn-orange"><?= Yii::t('db','Click Here'); ?>!</a>
                         </div>
                     </div>
             </div>
@@ -157,7 +146,81 @@ $this->title = 'Judiciary of Tanzania | Home';
 
         <!-- End Dashboard section -->
 
-        <!-- Press Coverage -->
+        <!-- Services -->
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="service-wrapper">
+                            <img src="img/service-icon/list.png" alt="Service 1">
+                            <h3><?= Yii::t('app','Cause Lists'); ?></h3>
+                            <p>
+                                <?= Yii::t('app', 'Schedule of cases to be heard by the courts on the following days.The Causelists give details such as Judges'); ?>.
+                            </p>
+                            <a href="<?= Url::to(['cause-list/weblist'])?>" class="btn"> <?= Yii::t('app','View Cause Lists'); ?> </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="service-wrapper">
+                            <img src="img/service-icon/statis.png" alt="Service 2">
+                            <h3><?= Yii::t('app','Cases Statistics'); ?></h3>
+                            <p><?= Yii::t('app', 'This module underline the cases roadmaps from the moment of their filing to the decision period'); ?>.</p>
+                            <a href="<?= Url::to(['site/statistics'])?>" class="btn"><?= Yii::t('app','View Statistics'); ?></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="service-wrapper">
+                            <img src="img/service-icon/db.png" alt="Service 3">
+                            <h3><?= Yii::t('app','Judgments and Decisions'); ?></h3>
+                            <p><?= Yii::t('app', 'Get to view popular Judgments that have caught puplic attention and interest'); ?>.</p>
+                            <a href="<?= Url::to(['judgments/weblist'])?>"" class="btn"><?= Yii::t('app','View Judgments'); ?></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Services -->
+
+                <!-- Call to Action Bar -->
+        <div class="section section-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="calltoaction-wrapper">
+                            <h2>Courts Useful Attachments <a href="#" class="btn btn-orange">View All</a></h2> 
+
+                            <table class="events-list">
+                            <?php                         
+                              $attachments = UsefulAttachments::find()->all();
+                                if(!empty($attachments))
+                                {
+                                    foreach($attachments as $attachment)
+                                    {
+                                        echo 
+                                    '<tr>
+                                        <td>
+                                            <div class="event-date">
+                                                <div class="event-month">'.$attachment['category'].'</div>
+                                                <div class="event-month">'.$attachment['upload_time'].'</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            '.$attachment['descriptions'].'.
+                                        </td>
+                                        <td class="event-venue hidden-xs"><i class="icon-map-marker"></i> Siemens Arena</td>
+                                        <td class="event-price hidden-xs">'.$attachment['attachment'].'.</td>
+                                        <td><a href="#" class="btn btn-green btn-sm event-more">Priview</a></td>
+                                    </tr>'; }} ?>
+
+                           </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Call to Action Bar -->
+
+                <!-- Press Coverage -->
         <div class="section">
             <div class="container">
                 <h2>Current Vision, Mission and Major Function</h2>
@@ -184,55 +247,6 @@ $this->title = 'Judiciary of Tanzania | Home';
             </div>
         </div>
         <!-- Press Coverage -->
-
-        <!-- Services -->
-        <div class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-sm-6">
-                        <div class="service-wrapper">
-                            <img src="img/service-icon/list.png" alt="Service 1">
-                            <h3><?= Yii::t('app','Cause Lists'); ?></h3>
-                            <p>
-                                <?= Yii::t('app', 'Schedule of cases to be heard by the courts on the following days.The Causelists give details such as Judges.'); ?>
-                            </p>
-                            <a href="<?= Url::to(['cause-list/weblist'])?>" class="btn"> <?= Yii::t('app','View Cause Lists'); ?> </a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="service-wrapper">
-                            <img src="img/service-icon/statis.png" alt="Service 2">
-                            <h3><?= Yii::t('app','Cases Statistics'); ?></h3>
-                            <p>Suspendisse eget libero mi. Fusce ligula orci, vulputate nec elit ultrices, ornare faucibus orci. Aenean lectus sapien, vehicula</p>
-                            <a href="<?= Url::to(['site/statistics'])?>" class="btn"><?= Yii::t('app','View Statistics'); ?></a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="service-wrapper">
-                            <img src="img/service-icon/db.png" alt="Service 3">
-                            <h3><?= Yii::t('app','Judgments and Decisions'); ?></h3>
-                            <p>Phasellus posuere et nisl ac commodo. Nulla facilisi. Sed tincidunt bibendum cursus. Aenean vulputate aliquam risus rutrum scelerisque</p>
-                            <a href="<?= Url::to(['judgments/weblist'])?>"" class="btn"><?= Yii::t('app','View Judgments'); ?></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Services -->
-
-        <!-- Call to Action Bar -->
-        <div class="section section-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="calltoaction-wrapper">
-                            <h3>New uploaded cause lists for all courts</h3> <a href="http://www.dragdropsite.com" class="btn btn-orange">Download here!</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Call to Action Bar -->
 
         <!-- Testimonials -->
         <div class="section">
@@ -296,7 +310,6 @@ $this->title = 'Judiciary of Tanzania | Home';
             </div>
         </div>
         <!-- End Testimonials -->
-
 
         <!-- News and Updates -->
         <div class="section">
@@ -451,10 +464,16 @@ $this->title = 'Judiciary of Tanzania | Home';
             <div class="container">
                 <h2>Useful Links</h2>
                 <div class="clients-logo-wrapper text-center row">
-                    <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/canon.png" alt="Client Name"></a></div>
-                    <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/cisco.png" alt="Client Name"></a></div>
-                    <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/dell.png" alt="Client Name"></a></div>
-                    <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/ea.png" alt="Client Name"></a></div>
+                    <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="http://www.ija.ac.tz/"><p><img src="img/logos/ija.png" alt="IJA"></p><p><strong>IJA</strong></p></a></div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="http://tls.or.tz/"><p><img src="img/logos/tls.jpg" alt="TLS"></p><p><strong>TLS</strong></p></a></div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="http://www.bunge.go.tz/"><p><img src="img/logos/bunge.jpg" alt="Bunge"></p><p><strong>Bunge La Tanzania</strong></p></a></div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="http://www.bunge.go.tz/"><p><img src="img/logos/lst.png" alt="Law School"></p><p><strong>The Law School</strong></p></a></div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><p><img src="img/logos/mlc.png" alt="MLC"></p><p><strong>Wizara ya katiba na sheria</strong></p></a></div>
+
                     <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/ebay.png" alt="Client Name"></a></div>
                     <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/facebook.png" alt="Client Name"></a></div>
                     <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/google.png" alt="Client Name"></a></div>

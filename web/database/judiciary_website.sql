@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2018 at 09:08 PM
+-- Generation Time: Oct 21, 2018 at 02:07 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.0.30
 
@@ -147,9 +147,9 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `attachment`, `title`, `descriptions`, `time`, `author`) VALUES
-(1, 'uploads/attach1', 'MAHAKAMA KUU WAJADILI MIKAKATI YA KUMALIZA MASHAURI MAHAKAMA', 'Jaji Mfawidhi wa Mahakama Kuu Kanda ya Mbeya, Mhe. Robert  Makaramba amewataka mahakimu wa kanda hiyo  kutambua kuwa wao ni walinzi wa haki na wanapokuwa katika utekelezaji wa majukumu yao wahakikishe wanatenda haki bila kuzingatia rangi, dini, wala hadhi ya watu wanaowahudumia.', '2018-10-08 11:19:00', 1),
-(2, 'uploads/attach1', 'WANANCHI MBEYA WAELIMISHWA KUHUSU MIRATHI NA WOSIA', 'Jaji wa Mahakama Kuu ya Tanzania kanda ya Mbeya Mhe.Dkt. Mary Levira ametoa wito kwa wananchi wa kanda hiyo kuhakikisha wanaandaa ushahidi unaojitosheleza ili wanapofika mahakamani waweze kuhudumiwa kwa wepesi na kupata haki wanazostahili. ', '2018-10-08 11:19:00', 1),
-(3, 'uploads/attach1', 'BAADHI YA VIONGOZI NA WATUMISHI WA MAHAKAMA YA TANZANIA WAJA', 'Jaji Mfawidhi Mahakamu Kuu, Kanda ya Tabora, Mhe. Salvatory Bongole amefanya ziara ya kikazi   kwa kutembelea na kukagua shughuli mbalimbali za Mahakama mkoani Kigoma pamoja na ukaguzi wa maendeleo ya ujenzi wa Mahakama Kuu, Kanda tarajiwa ya Kigoma.', '2018-10-08 11:19:00', 1);
+(1, 'uploads/jaji.jpg', 'MAHAKAMA KUU WAJADILI MIKAKATI YA KUMALIZA MASHAURI MAHAKAMA', 'Jaji Mfawidhi wa Mahakama Kuu Kanda ya Mbeya, Mhe. Robert  Makaramba amewataka mahakimu wa kanda hiyo  kutambua kuwa wao ni walinzi wa haki na wanapokuwa katika utekelezaji wa majukumu yao wahakikishe wanatenda haki bila kuzingatia rangi, dini, wala hadhi ya watu wanaowahudumia.', '2018-10-08 11:19:00', 1),
+(2, 'uploads/mugeta.jpg', 'WANANCHI MBEYA WAELIMISHWA KUHUSU MIRATHI NA WOSIA', 'Jaji wa Mahakama Kuu ya Tanzania kanda ya Mbeya Mhe.Dkt. Mary Levira ametoa wito kwa wananchi wa kanda hiyo kuhakikisha wanaandaa ushahidi unaojitosheleza ili wanapofika mahakamani waweze kuhudumiwa kwa wepesi na kupata haki wanazostahili. ', '2018-10-08 11:19:00', 1),
+(3, 'uploads/makamu.jpg', 'BAADHI YA VIONGOZI NA WATUMISHI WA MAHAKAMA YA TANZANIA WAJA', 'Jaji Mfawidhi Mahakamu Kuu, Kanda ya Tabora, Mhe. Salvatory Bongole amefanya ziara ya kikazi   kwa kutembelea na kukagua shughuli mbalimbali za Mahakama mkoani Kigoma pamoja na ukaguzi wa maendeleo ya ujenzi wa Mahakama Kuu, Kanda tarajiwa ya Kigoma.', '2018-10-08 11:19:00', 1);
 
 -- --------------------------------------------------------
 
@@ -173,6 +173,30 @@ INSERT INTO `source_message` (`id`, `category`, `message`, `attachment`) VALUES
 (2, 'db', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', ''),
 (3, 'db', 'Get started with Yii', ''),
 (11, 'db', 'Many blogs provide commentary on a particular subject or topic, ranging from politics to sports. Others function as more personal online diaries, and others function more as online brand advertising of a particular individual or company. A typical blog combines text, digital images, and links to other blogs, web pages, and other media related to its topic.', 'uploads/services3.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `useful_attachments`
+--
+
+CREATE TABLE `useful_attachments` (
+  `id` int(11) NOT NULL,
+  `category` varchar(15) NOT NULL,
+  `descriptions` varchar(225) NOT NULL,
+  `attachment` varchar(50) NOT NULL,
+  `upload_time` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `useful_attachments`
+--
+
+INSERT INTO `useful_attachments` (`id`, `category`, `descriptions`, `attachment`, `upload_time`) VALUES
+(1, 'MWONGOZO', 'Kijitabu cha utaratibu rahisi wa utekelezaji wa Mwongozo wa kutunza na kuteketeza Kumbukumbu', 'uploads/mwongozo.pdf', '2018-10-22'),
+(2, 'MWONGOZO', ' Mwongozo wa kutunza na kuteketeza kumbukumbu za kimahakama (The records retention & Disposal schedules for the courts of Tanzania)', 'uploads/directive.pdf', '2018-10-22'),
+(3, 'COURT FEES', ' Ada za Mahakama', 'uploads/ada.pdf', '2018-10-22'),
+(4, 'ATTACHMENT', 'Mashauri Masijala', 'uploads/mashauri.xls', '2018-10-22');
 
 -- --------------------------------------------------------
 
@@ -323,6 +347,12 @@ ALTER TABLE `source_message`
   ADD KEY `idx_source_message_category` (`category`);
 
 --
+-- Indexes for table `useful_attachments`
+--
+ALTER TABLE `useful_attachments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -382,6 +412,12 @@ ALTER TABLE `posts`
 --
 ALTER TABLE `source_message`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `useful_attachments`
+--
+ALTER TABLE `useful_attachments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`

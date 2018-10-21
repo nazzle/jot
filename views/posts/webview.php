@@ -7,8 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Posts */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Posts'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+/*$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Posts'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;*/
 ?>
 <div class="posts-view">
      <!-- Page Title -->

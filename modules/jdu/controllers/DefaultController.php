@@ -14,7 +14,8 @@ class DefaultController extends Controller
      * @return string
      */
     public function actionIndex()
-    {
+    { 
+    	$this->layout = 'jduLayout';
         return $this->render('index');
     }
 }

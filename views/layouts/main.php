@@ -47,20 +47,21 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="email">
-                        <a href="#"><i class="fa fa-envelope"></i>info@judiciary.go.tz</a>
+                        <a href="mailto:info@judiciary.go.tz"><i class="fa fa-envelope"></i>info@judiciary.go.tz</a>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="phone">
-                        <a href="#"><i class="fa fa-phone"></i>+255 22 2123897</a>
+                        <a href="tel:+255 22 2123897"><i class="fa fa-phone"></i>+255 22 2123897</a>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 text-right">
                     <div class="social-icons">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                        <a href="#"><i class="fa fa-youtube"></i></a>
                         <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 text-right">
@@ -113,8 +114,7 @@ AppAsset::register($this);
                                      <div>
                                         <h4>JUDICIARY UNITIES</h4>
                                         <ul>
-                                            <li><a href="index.html">Judiciary Delivery Unity (JDU)</a></li>
-                                            <li><a href="index.html">IJA</a></li>
+                                            <li><a href="<?= Url::to(['/jdu'])?>">Judiciary Delivery Unity (JDU)</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@ AppAsset::register($this);
                             </div><!-- /mainmenu-submenu -->
                         </li>
                         <li>
-                            <a href="credits.html"><?= Yii::t('app', 'Our Blog'); ?></a>
+                            <a href="<?= Url::to(['/blog'])?>"><?= Yii::t('app', 'Our Blog'); ?></a>
                         </li>
                     </ul>
                 </nav>
@@ -223,10 +223,10 @@ AppAsset::register($this);
             <div class="container">
                 <div class="row">
                             <div class="col-footer col-md-3 col-xs-6">
-                                <h3>Judiciary Portifolio</h3>
+                                <h3><?=Yii::t('app', 'Chief Justice Document'); ?></h3>
                                 <div class="portfolio-item">
-                                    <div class="portfolio-image">
-                                        <a href="page-portfolio-item.html"><img src="img/portfolio6.jpg" alt="Project Name"></a>
+                                    <div class="video-wrapper">
+                                        <iframe src="uploads/jaji.mp4" width="200" height="100" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
                                     </div>
                                 </div>
                             </div>

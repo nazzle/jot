@@ -78,7 +78,10 @@ $config = [
     'modules' => [
         'jdu' => [
             'class' => 'app\modules\jdu\Jdu',
-        ]
+        ],
+        'blog' => [
+            'class' => 'app\modules\blog\Blog',
+        ],
     ],
 ];
 

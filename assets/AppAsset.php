@@ -56,7 +56,7 @@ class AppAsset extends AssetBundle
         //'js/jQuery-2.1.4.min.js',
         'js/fastclick.min.js',
         'js/app.min.js',
-        'js/demo.js'
+        'js/demo.js',
 
     ];
     public $depends = [

@@ -2,6 +2,8 @@
 
 namespace app\modules\jdu;
 
+use Yii;
+
 /**
  * jdu module definition class
  */
