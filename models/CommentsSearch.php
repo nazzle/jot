@@ -1,16 +1,16 @@
-  <?php
+<?php
 
 namespace app\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Posts;
+use app\models\Comments;
 
 /**
- * PostsSearch represents the model behind the search form of `app\models\Posts`.
+ * CommentsSearch represents the model behind the search form of `app\models\Comments`.
  */
-class PostsSearch extends Posts
+class CommentsSearch extends Comments
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class PostsSearch extends Posts
     public function rules()
     {
         return [
-            [['id', 'author'], 'integer'],
-            [['attachment', 'title', 'descriptions', 'time'], 'safe'],
+            [['id', 'post_id'], 'integer'],
+            [['username', 'comment'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class PostsSearch extends Posts
      */
     public function search($params)
     {
-        $query = Posts::find();
+        $query = Comments::find();
 
         // add conditions that should always apply here
 
@@ -60,13 +60,11 @@ class PostsSearch extends Posts
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'time' => $this->time,
-            'author' => $this->author,
+            'post_id' => $this->post_id,
         ]);
 
-        $query->andFilterWhere(['like', 'attachment', $this->attachment])
-            ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'descriptions', $this->descriptions]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'comment', $this->comment]);
 
         return $dataProvider;
     }

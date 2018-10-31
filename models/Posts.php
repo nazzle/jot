@@ -33,7 +33,7 @@ class Posts extends \yii\db\ActiveRecord
             [['attachment', 'title', 'descriptions', 'time', 'author'], 'required'],
             [['descriptions'], 'string'],
             [['time'], 'safe'],
-            [['author'], 'integer'],
+            [['author','likes','dislikes'], 'integer'],
             [['attachment'], 'string', 'max' => 25],
             [['title'], 'string', 'max' => 60],
         ];

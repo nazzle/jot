@@ -54,7 +54,7 @@ $this->title = 'Management Page';
                   </a>
                   <a class="btn btn-app">
                     <span class="badge bg-red">531</span>
-                    <i class="fa fa-heart-o"></i> Likes
+                    <i class="fa fa-users"></i> Judicial Staffs
                   </a>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->

@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\SourceMessageSearch;
 use app\models\ContactForm;
+use app\models\Posts;
 
 class SiteController extends Controller
 {
@@ -88,6 +89,30 @@ class SiteController extends Controller
     public function actionStatistics()
     {
         return $this->render('statistics');
+    }
+
+    /**
+    *This action updates the number of likes for the post
+    * @return interger
+    **/
+    public function actionLikes($id)
+    {
+        $posts = new Posts();
+        /*$likes = (new \yii\db\Query())
+                ->select('likes')               
+                ->from('posts')
+                ->where(['id'=>$id]); 
+                // print_r(count($likes));
+                // die(); 
+        $idadi = $likes; */    
+
+             Yii::$app->db->createCommand()
+                    ->update('posts', 
+                            ['likes' => 'likes'],['id' =>$id]
+                    )->execute();
+
+         return $this->render('home');           
+        
     }
 
     /**

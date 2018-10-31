@@ -23,7 +23,7 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="shortcut icon" href="<?= Yii::$app->params['rootPath']; ?>/favicon(1).ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?= Yii::$app->params['rootPath']; ?>/nembo.png" type="image/x-icon" />
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -94,7 +94,7 @@ AppAsset::register($this);
              </div>
              <nav id="mainmenu" class="mainmenu">
                     <ul>
-                        <li class="logo-wrapper"><a href="index.html"><img src="img/jot.jpg" alt="Judiciary Of Tanzania"></a></li>
+                        <li class="logo-wrapper"><a href="<?= Url::to(['site/home'])?>"><img src="img/jot.jpg" alt="Judiciary Of Tanzania"></a></li>
                         <li class="active">
                             <a href="<?= Url::to(['site/home'])?>"><?= Yii::t('app', 'Home'); ?></a>
                         </li>
