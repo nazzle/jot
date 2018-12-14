@@ -32,9 +32,9 @@ $this->title = 'Management Page';
                   <a class="btn btn-app" href="<?=Url::to(['user-responses/index']) ?>">
                     <i class="fa fa-envelope"></i> User Responses
                   </a>
-                  <a class="btn btn-app" href="<?=Url::to(['replies/index']) ?>">
+                  <a class="btn btn-app" href="<?=Url::to(['useful-attachments/index']) ?>">
                     <span class="badge bg-yellow">3</span>
-                    <i class="fa fa-reply"></i> Replies
+                    <i class="fa fa-reply"></i> Attachments
                   </a>
                   <a class="btn btn-app" href="<?=Url::to(['vacancies/index']) ?>">
                     <span class="badge bg-green">300</span>
@@ -52,9 +52,9 @@ $this->title = 'Management Page';
                     <span class="badge bg-aqua">12</span>
                     <i class="fa fa-map"></i> Website Analysis
                   </a>
-                  <a class="btn btn-app">
+                  <a class="btn btn-app" href="<?=Url::to(['who-is-who/index']) ?>">
                     <span class="badge bg-red">531</span>
-                    <i class="fa fa-users"></i> Judicial Staffs
+                    <i class="fa fa-users"></i> Who Is Who
                   </a>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->

@@ -76,11 +76,20 @@ $config = [
         ],
     'params' => $params,
     'modules' => [
+        'pdfjs' => [
+             'class' => '\yii2assets\pdfjs\Module',
+         ],
         'jdu' => [
             'class' => 'app\modules\jdu\Jdu',
         ],
         'blog' => [
             'class' => 'app\modules\blog\Blog',
+        ],
+        'arusha' => [
+            'class' => 'app\modules\arusha\ArushaZone',
+        ],
+        'land' => [
+            'class' => 'app\modules\land\LandDivision',
         ],
     ],
 ];

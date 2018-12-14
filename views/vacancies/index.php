@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'duties:ntext',
             'type',
             'location',
+            'how_to_apply',
             //'posted_by',
 
             ['class' => 'yii\grid\ActionColumn'],

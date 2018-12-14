@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'how_to_apply')->textarea(['rows' => 3]) ?>
+
     <?= $form->field($model, 'posted_by')->textInput() ?>
 
     <div class="form-group">

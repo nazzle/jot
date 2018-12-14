@@ -5,9 +5,11 @@ use yii\helpers\Html;
 use app\models\Posts;
 use app\models\UsefulAttachments;
 use yii\helpers\Url;
+use yii\bootstrap\Modal;
 use app\models\UserResponses;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
+use app\models\WhoIsWho;
 
 /* @var $this yii\web\View */
 
@@ -21,7 +23,7 @@ $this->title = 'Judiciary of Tanzania | Home';
         <ul class="sequence-canvas">
             <!-- Slide 3 --> 
             <?php                         
-            $slides = Posts::find()->all();
+            $slides = Posts::find()->limit('5')->all();
             if(!empty($slides))
             {
                 foreach($slides as $slide)
@@ -43,6 +45,8 @@ $this->title = 'Judiciary of Tanzania | Home';
                         <li>1</li>
                         <li>2</li>
                         <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
                     </ul>
                 </div>
             </div>
@@ -52,11 +56,12 @@ $this->title = 'Judiciary of Tanzania | Home';
         <!-- Dashboard section -->
         <div class="section">
             <div class="container">
-                <h2>News and Events</h2>
+                <h2><?=Yii::t('app', 'News and Events')?></h2>
                 <div class="row">
+                    <div class="col-sm-8">
                   <?php
                   $posts = new Posts;                          
-                  $rows = Posts::find()->all();
+                  $rows = Posts::find()->limit('3')->orderBy(['id' => SORT_DESC])->all();
                   if(!empty($rows))
                   {
                     foreach($rows as $row)
@@ -78,23 +83,95 @@ $this->title = 'Judiciary of Tanzania | Home';
                         </div>
                         <div class="comment-actions">
                         <span class="comment-date">'.$row['time'].'</span>
-                        <a href="#" data-toggle="tooltip" data-original-title="Like" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-up"></i></a>
-                        <a href="#" data-toggle="tooltip" data-original-title="Dislike" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+                        <a href=" '.Url::to(['site/likes', 'id'=>$row['id']]).'
+                        " data-toggle="tooltip" data-original-title="Like" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-up"></i></a>
+                        <a href="'.Url::to(['site/dislikes', 'id'=>$row['id']]).'" data-toggle="tooltip" data-original-title="Dislike" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-down"></i></a>
                         <span class="label label-success">+'.$row['likes'].'</span>
+                        <span class="label label-danger">-'.$row['dislikes'].'</span>
                         <a href=" '.$link.' " class="btn btn-micro btn-grey comment-reply-btn"><i class="glyphicon glyphicon-share-alt"></i> See More & Comment</a>
                         </div>'
                         ;
                     }
                 }
-                ?>              
+                ?>
+                </div>
+
+                <!-- Sidebar -->
+                    <div class="col-sm-4 blog-sidebar">
+                        <h4><?= Yii::t('app', 'Search Posts'); ?></h4>
+                        <form>
+                            <div class="input-group">
+                                <input class="form-control input-md" id="appendedInputButtons" type="text">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-md" type="button"><?= Yii::t('app', 'Search'); ?></button>
+                                </span>
+                            </div>
+                        </form>
+                        <h4><?= Yii::t('app', 'Recent Posts'); ?></h4>
+                        <ul class="recent-posts">
+                            <?php    
+                            $posts = Posts::find()->limit('4')->orderBy(['id' => SORT_DESC])->all();                                                            
+                                 if(!empty($posts))
+                                     {
+                                         foreach($posts as $post)
+                                            {
+                                                echo 
+                                                '<li><a href=" '.Url::to(['posts/webview','id'=>$post['id']]).' ">'.$post['title'].'</li>';
+                                            }
+                                        } ?>
+                        </ul>
+                        <h4><?= Yii::t('app', 'Categories'); ?></h4>
+                        <ul class="blog-categories">
+                            <li><a href="<?=Url::to(['posts/photogallery']) ?>"><?= Yii::t('app', 'Photo Gallery'); ?></a></li>
+                            <li><a href="#"><?= Yii::t('app', 'Video Gallery'); ?></a></li>
+                            <li><a href="#"><?= Yii::t('app', 'Frequently Asked Questions-FAQ'); ?></a></li>
+                        </ul>
+                        <h4><?= Yii::t('app', 'Major Links'); ?></h4>
+                        <ul class="blog-categories">
+                            <li><a href="#"><?= Yii::t('app', 'JSDS 2'); ?></a></li>
+                            <li><a href="#"><?= Yii::t('app', 'Court Fees'); ?></a></li>
+                            <li><a href="<?=Url::to(['vacancies/webview'])?>"><?= Yii::t('app', 'Vacancies'); ?></a></li>
+                        </ul>
+                        <h4><?= Yii::t('app', 'Announcements'); ?></h4>
+                        <ul class="blog-categories">
+                            <li><a href="#"><?= Yii::t('app', 'JSDS 2'); ?></a></li>
+                            <li><a href="#"><?= Yii::t('app', 'Court Fees'); ?></a></li>
+                        </ul>
+                    </div>
+                    <!-- End Sidebar -->
+
             </div>
-            <div class="col-md-12">
-                <div class="calltoaction-wrapper">
-                    <h3><?= Yii::t('db','To view all news and events'); ?></h3> <a href="#" class="btn btn-orange"><?= Yii::t('db','Click Here'); ?>!</a>
+            <!-- Judiciary TV Section -->
+                    <div class="col-sm-6">
+                        <div class="product-image-large">
+                            <img src="uploads/mahakama.jpg" alt="Item Name">
+                        </div>
+                    </div>
+                    <!-- End Judiciary TV Section -->
+                    <!-- Judiciary TV Section details -->
+                    <div class="col-sm-6 product-details">
+                        <h4><?=Yii::t('app', 'Judiciary TV') ?> <i class="fa fa-youtube"></i></h4>
+                        <h5>Quick Overview</h5>
+                        <p>
+                            Morbi eleifend congue elit nec sagittis. Praesent aliquam lobortis tellus, nec consequat massa ornare vitae. Ut fermentum justo vel venenatis eleifend. Fusce id magna eros.
+                        </p>
+                    </div>
+                    <!-- End Judiciary TV Section details -->                              
+        </div>
+    </div>
+    <!-- Call to Action Bar -->
+        <div class="section section-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="calltoaction-wrapper">
+                            <h3><?= Yii::t('app','To view all news and events'); ?></h3> <a href="#" class="btn btn-orange"><?= Yii::t('app','Click Here'); ?>!</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- End Call to Action Bar -->        
     <!-- Dashboard end -->            
 
     <div class="section">
@@ -185,13 +262,13 @@ $this->title = 'Judiciary of Tanzania | Home';
     <div class="section section-white">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="calltoaction-wrapper">
                         <h2><?=Yii::t('app', 'Courts Useful Attachments'); ?> <a href="#" class="btn btn-orange"><?=Yii::t('app', 'View All'); ?></a></h2> 
 
                         <table class="events-list">
                             <?php                         
-                            $attachments = UsefulAttachments::find()->all();
+                            $attachments = UsefulAttachments::find()->where(['category'=>'Attachment'])->limit('5')->orderBy(['id' => SORT_DESC])->all();
                             if(!empty($attachments))
                             {
                                 foreach($attachments as $attachment)
@@ -207,10 +284,38 @@ $this->title = 'Judiciary of Tanzania | Home';
                                     <td>
                                     '.$attachment['descriptions'].'.
                                     </td>
-                                    <td class="event-venue hidden-xs"><i class="icon-map-marker"></i> Siemens Arena</td>
-                                    <td class="event-price hidden-xs">'.$attachment['attachment'].'.</td>
                                     <td><a href="#" class="btn btn-green btn-sm event-more">Priview</a></td>
                                     </tr>'; }} ?>
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                    <div class="calltoaction-wrapper">
+                        <h2><?=Yii::t('app', 'Courts Fees'); ?> <a href="#" class="btn btn-orange"><?=Yii::t('app', 'View All'); ?></a></h2> 
+
+                        <table class="events-list">
+                            <?php                         
+                            $attachments = UsefulAttachments::find()->where(['category'=>'Fees'])->limit('5')->orderBy(['id' => SORT_DESC])->all();
+                            if(!empty($attachments))
+                            {
+                                foreach($attachments as $attachment)
+                                {
+                                    $pdfFile = Url::to(['site/pdf', 'id' => $attachment['id']]);
+                                    echo 
+                                    '<tr>
+                                    <td>
+                                    <div class="event-date">
+                                    <div class="event-month">'.$attachment['category'].'</div>
+                                    <div class="event-month">'.$attachment['upload_time'].'</div>
+                                    </div>
+                                    </td>
+                                    <td>
+                                    '.$attachment['descriptions'].'.
+                                    </td>
+                                    <td><a href=" '.$pdfFile .' " class="btn btn-green btn-sm event-more">Priview</a></td>
+                                    </tr>'; 
+                                }} ?>
 
                                 </table>
                             </div>
@@ -251,61 +356,37 @@ $this->title = 'Judiciary of Tanzania | Home';
             <!-- Testimonials -->
             <div class="section">
                 <div class="container">
-                    <h2>Who is who in Judiciary</h2>
+                    <h2><?=Yii::t('app', 'Who is who in Judiciary') ?></h2>
                     <div class="row">
-                        <!-- Testimonial -->
-                        <div class="testimonial col-md-4 col-sm-6">
-                            <!-- Author Photo -->
-                            <div class="author-photo">
-                                <img src="img/jaji-mkuu.jpg" alt="Author 1">
-                            </div>
-                            <div class="testimonial-bubble">
-                                <blockquote>
-                                    <!-- Quote -->
-                                    <p class="quote">
-                                        "The top most position of the Judiciary held by the Chief Justice (CJ)."
-                                    </p>
-                                    <!-- Author Info -->
-                                    <cite class="author-info">
-                                        - Hon. IBRAHIM HAMIS JUMA,<br>Chief Justice at <a href="#">Judiciary Of Tanzania</a>
-                                    </cite>
-                                </blockquote>
-                                <div class="sprite arrow-speech-bubble"></div>
-                            </div>
+
+                        <div class="col-md-12">
+                        <div class="products-slider">
+                            <!-- Products Slider Item -->
+                            <?php                         
+                            $staffs = WhoIsWho::find()->all();
+                            if(!empty($staffs))
+                            {
+                                foreach($staffs as $staff)
+                                { echo '
+                            <div class="shop-item">
+                                <!-- Product Image -->
+                                <div class="image">
+                                    <img src=" '.$staff['photo'].' " alt="Staff Name">
+                                </div>
+                                <!-- Product Title -->
+                                <div class="title">
+                                    <h3>'.$staff['name'].'</h3>
+                                </div>
+                                <!-- Product Price -->
+                                <div class="price">
+                                    '.$staff['position'].'
+                                </div>
+                            </div>'; }} ?>
+
+                            <!-- End Products Slider Item -->
                         </div>
-                        <!-- End Testimonial -->
-                        <div class="testimonial col-md-4 col-sm-6">
-                            <div class="author-photo">
-                                <img src="img/jaji-kiongozi.jpg" alt="Author 2">
-                            </div>
-                            <div class="testimonial-bubble">
-                                <blockquote>
-                                    <p class="quote">
-                                        "This position is held by someone responsible on managing all judges."
-                                    </p>
-                                    <cite class="author-info">
-                                        - Hon. Ferdinand Wambali,<br>Chief Judge at <a href="#">Judiciary Of Tanzania</a>
-                                    </cite>
-                                </blockquote>
-                                <div class="sprite arrow-speech-bubble"></div>
-                            </div>
-                        </div>
-                        <div class="testimonial col-md-4 col-sm-6">
-                            <div class="author-photo">
-                                <img src="img/mtendaji-mkuu.jpg" alt="Author 3">
-                            </div>
-                            <div class="testimonial-bubble">
-                                <blockquote>
-                                    <p class="quote">
-                                        "Responsible in all Judiciary duties and management."
-                                    </p>
-                                    <cite class="author-info">
-                                        - Hon. HUSSEIN KATANGA,<br>Chief Court Administrator at <a href="#">Judiciary Of Tanzania</a>
-                                    </cite>
-                                </blockquote>
-                                <div class="sprite arrow-speech-bubble"></div>
-                            </div>
-                        </div>
+                    </div>
+
                     </div>
                 </div>
             </div>
@@ -322,10 +403,10 @@ $this->title = 'Judiciary of Tanzania | Home';
                             <div class="pricing-plan"><a href="#">
                                 <!-- Pricing Plan Ribbon -->
                                 <div class="ribbon-wrapper">
-                                    <div class="price-ribbon ribbon-red">Popular</div>
+                                    <div class="price-ribbon ribbon-red"><?=Yii::t('app', 'Popular') ?></div>
                                 </div>
-                                <h2 class="pricing-plan-title">Decisions</h2>
-                                <p class="pricing-plan-price">Uploads</p>
+                                <h2 class="pricing-plan-title"><?=Yii::t('app', 'Decisions') ?></h2>
+                                <p class="pricing-plan-price"><?=Yii::t('app', 'Uploads') ?></p>
                                 <!-- Pricing Plan Features -->
                                 <ul class="pricing-plan-features">
                                     <li><strong>54</strong> High Court</li>
@@ -336,8 +417,12 @@ $this->title = 'Judiciary of Tanzania | Home';
                             </a></div>
                             <!-- End Pricing Plan -->
                             <div class="pricing-plan">
-                                <h2 class="pricing-plan-title">Judiciary Blog</h2>
-                                <p class="pricing-plan-price">Updates<span></span></p>
+                                <!-- Pricing Plan Ribbon -->
+                                <div class="ribbon-wrapper">
+                                    <div class="price-ribbon ribbon-green">New</div>
+                                </div>
+                                <h2 class="pricing-plan-title">Tenders Updates</h2>
+                                <p class="pricing-plan-price">Tenders<span></span></p>
                                 <ul class="pricing-plan-features">
                                     <li><strong>Events</strong> and Occasions</li>
                                     <li><strong>Updates</strong> news</li>
@@ -422,7 +507,7 @@ $this->title = 'Judiciary of Tanzania | Home';
                                     'form'=>$form,
                                     'columns'=>1,
                                     'attributes'=>[       // 2 column layout
-                                    'message_type'=>['type'=>Form::INPUT_DROPDOWN_LIST,'options'=>['placeholder'=>'Enter message type...'],'items'=>[ 'Complaints' => 'Complaints', 'Suggestions' => 'Suggestions', ]],
+                                    'message_type'=>['type'=>Form::INPUT_DROPDOWN_LIST,'options'=>['prompt'=>'Enter message type...'],'items'=>[ 'Complaints' => 'Complaints', 'Suggestions' => 'Suggestions', ]],
                                 ]
                             ]); 
                                 echo Form::widget([       // 1 column layout
@@ -462,7 +547,7 @@ $this->title = 'Judiciary of Tanzania | Home';
              <!-- Useful Links -->
              <div class="section">
                 <div class="container">
-                    <h2>Useful Links</h2>
+                    <h2><?=Yii::t('app', 'Related Links'); ?></h2>
                     <div class="clients-logo-wrapper text-center row">
                         <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="http://www.ija.ac.tz/"><p><img src="img/logos/ija.png" alt="IJA"></p><p><strong>IJA</strong></p></a></div>
 
@@ -474,14 +559,16 @@ $this->title = 'Judiciary of Tanzania | Home';
 
                         <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><p><img src="img/logos/mlc.png" alt="MLC"></p><p><strong>Wizara ya katiba na sheria</strong></p></a></div>
 
-                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/ebay.png" alt="Client Name"></a></div>
-                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/facebook.png" alt="Client Name"></a></div>
-                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/google.png" alt="Client Name"></a></div>
-                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/hp.png" alt="Client Name"></a></div>
-                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/microsoft.png" alt="Client Name"></a></div>
-                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/mysql.png" alt="Client Name"></a></div>
-                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/sony.png" alt="Client Name"></a></div>
-                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><img src="img/logos/yahoo.png" alt="Client Name"></a></div>
+                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><p><img src="img/logos/mlc.png" alt="TAWJA"></p><p><strong>Tanzania Women Judges Association</strong></p></a></div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><p><img src="img/logos/mlc.png" alt="JMAT"></p><p><strong>Judges & Magistrate Association Of Tanzania</strong></p></a></div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><p><img src="img/logos/wlac.jpg" alt="WLAC"></p><p><strong>WLAC</strong></p></a></div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><p><img src="img/logos/mlc.png" alt="TAWJA"></p><p><strong>Tanzania Women Judges Association</strong></p></a></div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-6"><a href="#"><p><img src="img/logos/tlii.jpg" alt="TLII"></p><p><strong>Tanzania Legal Information Institute</strong></p></a></div>
+
                     </div>
                 </div>
             </div>

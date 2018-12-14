@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "useful_attachments".
@@ -15,9 +16,12 @@ use Yii;
  */
 class UsefulAttachments extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
+    public $file;
+
     public static function tableName()
     {
         return 'useful_attachments';
@@ -31,9 +35,10 @@ class UsefulAttachments extends \yii\db\ActiveRecord
         return [
             [['category', 'descriptions', 'attachment', 'upload_time'], 'required'],
             [['upload_time'], 'safe'],
+            [['file'], 'file'],
             [['category'], 'string', 'max' => 15],
             [['descriptions'], 'string', 'max' => 225],
-            [['attachment'], 'string', 'max' => 50],
+            [['attachment'], 'string', 'max' => 250],            
         ];
     }
 
@@ -48,6 +53,7 @@ class UsefulAttachments extends \yii\db\ActiveRecord
             'descriptions' => Yii::t('app', 'Descriptions'),
             'attachment' => Yii::t('app', 'Attachment'),
             'upload_time' => Yii::t('app', 'Upload Time'),
+            'file' => Yii::t('app', 'Select Attachment'),
         ];
     }
 }

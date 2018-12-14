@@ -6,13 +6,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\UsefulAttachments */
 
-$this->title = Yii::t('app', 'Create Useful Attachments');
+$this->title = Yii::t('app', 'Add New Attachment');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Useful Attachments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="useful-attachments-create">
+<div class="container">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <?= $this->render('_form', [
         'model' => $model,

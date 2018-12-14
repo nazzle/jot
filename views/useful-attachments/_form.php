@@ -9,21 +9,22 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="useful-attachments-form">
+	<div class="container">
 
-    <?php $form = ActiveForm::begin(); ?>
+	    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'category')->textInput(['maxlength' => true]) ?>
+	    <?= $form->field($model, 'category')->dropdownList(['Fees'=>'Fees', 'Attachment'=>'Attachment'], ['prompt'=>'Select Attachment Type']) ?>
 
-    <?= $form->field($model, 'descriptions')->textInput(['maxlength' => true]) ?>
+	    <?= $form->field($model, 'descriptions')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'attachment')->textInput(['maxlength' => true]) ?>
+	    <?= $form->field($model, 'file')->fileInput() ?>
 
-    <?= $form->field($model, 'upload_time')->textInput() ?>
+	    <div class="form-group">
+	        <?= Html::submitButton(Yii::t('app', 'Upload'), ['class' => 'btn btn-success']) ?>
+	    </div>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-    </div>
+	    <?php ActiveForm::end(); ?>
 
-    <?php ActiveForm::end(); ?>
+	</div>
 
 </div>

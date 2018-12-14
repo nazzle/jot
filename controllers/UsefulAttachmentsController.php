@@ -8,6 +8,7 @@ use app\models\UsefulAttachmentsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * UsefulAttachmentsController implements the CRUD actions for UsefulAttachments model.
@@ -66,7 +67,22 @@ class UsefulAttachmentsController extends Controller
     {
         $model = new UsefulAttachments();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        date_default_timezone_set("Africa/Dar_es_Salaam");
+
+        if ($model->load(Yii::$app->request->post())) 
+        {
+
+            //Get instance of Uploaded file
+            $model->file = UploadedFile::getInstance($model, 'file');               
+            $model->file->saveAs( 'useful_attachments/' . str_replace(' ', '_', $model->descriptions) . '.' . $model->file->extension );
+
+            //Save the path to the db
+            $model->attachment = '/useful_attachments/' . str_replace(' ', '_', $model->descriptions) . '.' . $model->file->extension;
+            $model->upload_time = date('y-m-d');
+            $model->save();
+            /*print_r($model->getErrors());
+            die();*/
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

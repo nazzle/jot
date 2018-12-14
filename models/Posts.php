@@ -19,6 +19,8 @@ class Posts extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $photo;
+
     public static function tableName()
     {
         return 'posts';
@@ -33,6 +35,7 @@ class Posts extends \yii\db\ActiveRecord
             [['attachment', 'title', 'descriptions', 'time', 'author'], 'required'],
             [['descriptions'], 'string'],
             [['time'], 'safe'],
+            [['photo'], 'file'],
             [['author','likes','dislikes'], 'integer'],
             [['attachment'], 'string', 'max' => 25],
             [['title'], 'string', 'max' => 60],
@@ -51,6 +54,7 @@ class Posts extends \yii\db\ActiveRecord
             'descriptions' => Yii::t('app', 'Descriptions'),
             'time' => Yii::t('app', 'Time'),
             'author' => Yii::t('app', 'Author'),
+            'photo' => Yii::t('app', 'Photo'),
         ];
     }
 }

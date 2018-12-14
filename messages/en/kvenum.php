@@ -76,6 +76,7 @@ return [
     'Wednesday' => '',
     'Windows' => '',
     'Yes' => '',
+    'a moment' => '',
     'a moment ago' => '',
     'ago' => '',
     'billion' => '',

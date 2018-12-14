@@ -8,6 +8,7 @@ use app\models\PostsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -58,6 +59,14 @@ class PostsController extends Controller
     }
 
     /**
+    *This action renders the photo gallery
+    **/
+    public function actionPhotogallery()
+    {
+        return $this->render('photogallery');
+    }
+
+    /**
      * Displays a single Posts model for non authenticated users.
      * @param integer $id
      * @return mixed
@@ -79,7 +88,20 @@ class PostsController extends Controller
     {
         $model = new Posts();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) 
+        {
+            //Get instance of Uploaded file
+            $model->photo = UploadedFile::getInstance($model, 'photo');               
+            $model->photo->saveAs( 'posts/' . str_replace(' ', '_', $model->photo->baseName) . '.' . $model->photo->extension );
+
+            //Save the path to the db
+            $model->attachment = 'posts/' . str_replace(' ', '_', $model->photo->baseName) . '.' . $model->photo->extension;
+            $model->time = date('y-m-d h:m:s');
+            $model->author = 1;
+            $model->save();
+            /*print_r($model->getErrors());
+            die();*/
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

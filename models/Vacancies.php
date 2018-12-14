@@ -30,8 +30,8 @@ class Vacancies extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['position', 'duties', 'type', 'location', 'posted_by'], 'required'],
-            [['duties', 'type'], 'string'],
+            [['position', 'duties', 'type', 'location', 'posted_by','how_to_apply'], 'required'],
+            [['duties', 'type','how_to_apply'], 'string'],
             [['posted_by'], 'integer'],
             [['position'], 'string', 'max' => 50],
             [['location'], 'string', 'max' => 25],
@@ -50,6 +50,7 @@ class Vacancies extends \yii\db\ActiveRecord
             'type' => Yii::t('app', 'Type'),
             'location' => Yii::t('app', 'Location'),
             'posted_by' => Yii::t('app', 'Posted By'),
+            'how_to_apply' => Yii::t('app', 'How To Apply'),
         ];
     }
 }

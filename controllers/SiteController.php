@@ -11,6 +11,8 @@ use app\models\LoginForm;
 use app\models\SourceMessageSearch;
 use app\models\ContactForm;
 use app\models\Posts;
+use Da\QrCode\QrCode;
+use app\models\UsefulAttachments;
 
 class SiteController extends Controller
 {
@@ -71,6 +73,26 @@ class SiteController extends Controller
      *
      * @return string
      */
+    public function actionQr()
+    {
+    $qrCode = (new QrCode('Hii ni nakala halali ya Mahakama ya Tanzania.'))
+    ->setSize(100)
+    ->setMargin(5)
+    ->useForegroundColor(51, 153, 255);
+
+    // display directly to the browser 
+    header('Content-Type: '.$qrCode->getContentType());
+    echo $qrCode->writeString();
+
+die();
+        return $this->render('qr');
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
     public function actionHome()
     {
         $searchModel = new SourceMessageSearch();
@@ -91,6 +113,19 @@ class SiteController extends Controller
         return $this->render('statistics');
     }
 
+     /**
+     * Displays statistics ib details.
+     *
+     * @return string
+     */
+    public function actionPdf($id)
+    {
+        
+        return $this->render('viewPDF',[
+            'id' => $id,
+        ]);
+    }
+
     /**
     *This action updates the number of likes for the post
     * @return interger
@@ -98,22 +133,44 @@ class SiteController extends Controller
     public function actionLikes($id)
     {
         $posts = new Posts();
-        /*$likes = (new \yii\db\Query())
-                ->select('likes')               
-                ->from('posts')
-                ->where(['id'=>$id]); 
-                // print_r(count($likes));
-                // die(); 
-        $idadi = $likes; */    
+        $cell = Posts::find()->where(['id'=>$id])->all();
+        foreach ($cell as $cell) {
 
-             Yii::$app->db->createCommand()
+            Yii::$app->db->createCommand()
                     ->update('posts', 
-                            ['likes' => 'likes'],['id' =>$id]
+                            ['likes' => $cell['likes'] + 1],['id' =>$id]
                     )->execute();
+        }
 
          return $this->render('home');           
         
     }
+//===============================================================================================
+// Dislike increment method
+        /**
+    *This action updates the number of likes for the post
+    * @return interger
+    **/
+//===============================================================================================
+
+    public function actionDislikes($id)
+    {
+        $posts = new Posts();
+        $cell = Posts::find()->where(['id'=>$id])->all();
+        foreach ($cell as $cell) {
+
+            Yii::$app->db->createCommand()
+                    ->update('posts', 
+                            ['dislikes' => $cell['dislikes'] + 1],['id' =>$id]
+                    )->execute();
+        }
+
+         return $this->render('home');           
+        
+    }
+
+
+
 
     /**
      * This displays the page for administration.

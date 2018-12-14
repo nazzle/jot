@@ -96,7 +96,7 @@ AppAsset::register($this);
                     <ul>
                         <li class="logo-wrapper"><a href="<?= Url::to(['site/home'])?>"><img src="img/jot.jpg" alt="Judiciary Of Tanzania"></a></li>
                         <li class="active">
-                            <a href="<?= Url::to(['site/home'])?>"><?= Yii::t('app', 'Home'); ?></a>
+                            <a href="<?= Url::to(['site/home'])?>"><i class="fa fa-home"></i> <?= Yii::t('app', 'Home'); ?></a>
                         </li>
                         <li class="has-submenu">
                             <a href="#"><?= Yii::t('app', 'Zones And Unities'); ?></a>
@@ -105,10 +105,19 @@ AppAsset::register($this);
                                     <div>
                                         <h4>JUDICIARY ZONES</h4>
                                         <ul>
-                                            <li><a href="index.html">Arusha Zone</a></li>
+                                            <li><a href="<?= Url::to(['/arusha'])?>">Arusha Zone</a></li>
                                             <li><a href="index.html">Mbeya Zone</a></li>
                                             <li><a href="index.html">Morogoro Zone</a></li>
                                             <li><a href="index.html">Mwanza Zone</a></li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4>JUDICIARY DIVISIONS</h4>
+                                        <ul>
+                                            <li><a href="<?= Url::to(['/arusha'])?>">Land Division</a></li>
+                                            <li><a href="index.html">Commercial Division</a></li>
+                                            <li><a href="index.html">Labour Court</a></li>
+                                            <li><a href="index.html">Corruption Court</a></li>
                                         </ul>
                                     </div>
                                      <div>
@@ -171,6 +180,10 @@ AppAsset::register($this);
                                             <li><a href="page-products-3-columns.html">Court Brokers, 2017</a></li>
                                             <li><a href="page-products-4-columns.html">Court fees</a></li>
                                         </ul>
+                                        <h4><?=Yii::t('app', 'VACANCIES') ?></h4>
+                                        <ul>
+                                            <li><a href="<?=Url::to(['vacancies/webview'])?>"><?=Yii::t('app', 'Job Opportunities') ?></a></li>
+                                        </ul>
                                     </div>
                                     <div>
                                         <h4>MULTIMEDIA</h4>
@@ -202,6 +215,12 @@ AppAsset::register($this);
                         <li>
                             <a href="<?= Url::to(['/blog'])?>"><?= Yii::t('app', 'Our Blog'); ?></a>
                         </li>
+                         <li>
+                            <a href="https://mail.judiciary.go.tz"><?= Yii::t('app', 'Staff Emails'); ?></a>
+                        </li>
+                         <li>
+                            <a href="<?= Url::to(['/blog'])?>"><?= Yii::t('app', 'Tenders'); ?></a>
+                        </li>
                     </ul>
                 </nav>
     </div>
@@ -231,14 +250,19 @@ AppAsset::register($this);
                                 </div>
                             </div>
                             <div class="col-footer col-md-3 col-xs-6">
-                                <h3>Navigate</h3>
+                                <h3>Resources Links</h3>
                                 <ul class="no-list-style footer-navigate-section">
-                                    <li><a href="page-blog-posts.html">Blog</a></li>
-                                    <li><a href="page-portfolio-3-columns-2.html">Portfolio</a></li>
-                                    <li><a href="page-products-3-columns.html">eShop</a></li>
-                                    <li><a href="page-services-3-columns.html">Services</a></li>
-                                    <li><a href="page-pricing.html">Pricing</a></li>
-                                    <li><a href="page-faq.html">FAQ</a></li>
+                                    <li><a href="#">Acts</a></li>
+                                    <li><a href="#">Constitution Of Tanzania</a></li>
+                                    <li><a href="#">Tanzania Official Website</a></li>
+                                    <li><a href="#">The Office Of Attorney General</a></li>
+                                    <li><a href="#">East Africa Court Of Justice</a></li>
+                                    <li><a href="#">Law Reform Commission of Tanzania</a></li>
+                                    <li><a href="#">Laws Of Tanzania from 2002-2012 </a></li>
+                                    <li><a href="#">President Office Website </a></li>
+                                    <li><a href="#"> Commission Of Human Rights</a></li>
+                                    <li><a href="#">Judicial Service Commission </a></li>
+                                    <li><a href="#">Constitutional Review Commission </a></li>
                                 </ul>
                             </div>
                             

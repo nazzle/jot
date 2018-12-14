@@ -11,27 +11,28 @@ $this->title = Yii::t('app', 'Useful Attachments');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="useful-attachments-index">
+    <div class="container">
+        <h2><?= Html::encode($this->title) ?></h2>
+        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        <p>
+            <?= Html::a(Yii::t('app', 'Add New Attachment'), ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Useful Attachments'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                'id',
+                'category',
+                'descriptions',
+                'attachment',
+                'upload_time',
 
-            'id',
-            'category',
-            'descriptions',
-            'attachment',
-            'upload_time',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
+    </div>
 </div>

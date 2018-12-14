@@ -45,6 +45,20 @@ class VacanciesController extends Controller
     }
 
     /**
+    * Action to display vacancies to website veiwers
+    **/
+    public function actionWebview()
+    {
+       $searchModel = new VacanciesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('webview', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
      * Displays a single Vacancies model.
      * @param integer $id
      * @return mixed
