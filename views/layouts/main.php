@@ -10,6 +10,8 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use kartik\widgets\Growl;
+use kartik\social\GoogleAnalytics;
 
 AppAsset::register($this);
 ?>
@@ -45,23 +47,28 @@ AppAsset::register($this);
     <header class="header-top">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="email">
                         <a href="mailto:info@judiciary.go.tz"><i class="fa fa-envelope"></i>info@judiciary.go.tz</a>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="phone">
                         <a href="tel:+255 22 2123897"><i class="fa fa-phone"></i>+255 22 2123897</a>
                     </div>
                 </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="phone">
+                        <a href="https://mail.judiciary.go.tz"><i class="fa fa-envelope-o"></i><?= Yii::t('app', 'Staff Emails'); ?></a>
+                    </div>
+                </div>
+
                 <div class="col-md-3 col-sm-6 col-xs-12 text-right">
                     <div class="social-icons">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-youtube"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/The-Judiciary-of-Tanzania-654628221361656/"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.twitter.com/judiciarytz"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/channel/UCHNsfaFm_ERdRZxBAaARuqQ/featured"><i class="fa fa-youtube"></i></a>
+                        <a href="http://tanzaniajudiciary.blogspot.com/"><i class="fa fa-bold"></i></a>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 text-right">
@@ -79,6 +86,15 @@ AppAsset::register($this);
          <div class="menuextras">
                     <div class="extras">
                         <ul>
+                             <?php
+                                if (Yii::$app->user->isGuest) {
+                                    echo '<li class="shopping-cart-items"><i class="fa fa-lock icon-white"></i> <a href="index.php?r=site/login"><b>  Login</b></a></li>';
+                                } else {
+                                    echo '<li class="shopping-cart-items"><i class="fa fa-unlock icon-white"></i><a data-method="post" href="index.php?r=site/logout"><b> Logout ('.Yii::$app->user->identity->username.') </b></a></li>';
+                                }
+                            ?>
+                        </ul>
+                        <ul>
                             <li class="shopping-cart-items"><i class="glyphicon glyphicon-cog icon-white"></i> <a href="#"><b><?= Yii::t('app', 'Change Language'); ?>:</b></a></li>
                             <li>
                                 <div class="dropdown choose-country" style="color: #fff">
@@ -90,95 +106,96 @@ AppAsset::register($this);
                                 </div>
                             </li>
                         </ul>
+
                  </div>
              </div>
              <nav id="mainmenu" class="mainmenu">
                     <ul>
-                        <li class="logo-wrapper"><a href="<?= Url::to(['site/home'])?>"><img src="img/jot.jpg" alt="Judiciary Of Tanzania"></a></li>
+                        <li class="logo-wrapper"><a href="<?= Url::to(['site/index'])?>"><img draggable="false" src="img/jotlogo.jpg" alt="Judiciary Of Tanzania" height="50px" width="200px"></a></li>
                         <li class="active">
-                            <a href="<?= Url::to(['site/home'])?>"><i class="fa fa-home"></i> <?= Yii::t('app', 'Home'); ?></a>
+                            <a href="<?= Url::to(['site/index'])?>"><i class="fa fa-home"></i> <?= Yii::t('app', 'Home'); ?></a>
                         </li>
                         <li class="has-submenu">
-                            <a href="#"><?= Yii::t('app', 'Zones And Unities'); ?></a>
+                            <a href="#"><?= Yii::t('app', 'Zones And Divisions'); ?></a>
                             <div class="mainmenu-submenu">
                                 <div class="mainmenu-submenu-inner"> 
                                     <div>
                                         <h4>JUDICIARY ZONES</h4>
                                         <ul>
-                                            <li><a href="<?= Url::to(['/arusha'])?>">Arusha Zone</a></li>
-                                            <li><a href="index.html">Mbeya Zone</a></li>
-                                            <li><a href="index.html">Morogoro Zone</a></li>
-                                            <li><a href="index.html">Mwanza Zone</a></li>
+                                            <li><a href="#">Arusha Zone</a></li>
+                                            <li><a href="#">Mbeya Zone</a></li>
+                                            <li><a href="#">Morogoro Zone</a></li>
+                                            <li><a href="#">Mwanza Zone</a></li>
                                         </ul>
                                     </div>
                                     <div>
-                                        <h4>JUDICIARY DIVISIONS</h4>
+                                        <h4><?=Yii::t('app', 'JUDICIARY DIVISIONS')?></h4>
                                         <ul>
-                                            <li><a href="<?= Url::to(['/arusha'])?>">Land Division</a></li>
-                                            <li><a href="index.html">Commercial Division</a></li>
-                                            <li><a href="index.html">Labour Court</a></li>
-                                            <li><a href="index.html">Corruption Court</a></li>
-                                        </ul>
-                                    </div>
-                                     <div>
-                                        <h4>JUDICIARY UNITIES</h4>
-                                        <ul>
-                                            <li><a href="<?= Url::to(['/jdu'])?>">Judiciary Delivery Unity (JDU)</a></li>
+                                            <li><a href="#"><?=Yii::t('app', 'Land Division')?></a></li>
+                                            <li><a href="#">Commercial Division</a></li>
+                                            <li><a href="#">Labour Court</a></li>
+                                            <li><a href="#">Corruption Court</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </li>
+                        <li>
+                            <a href="https://jsds.judiciary.go.tz"><?= Yii::t('app', 'JSDS 2'); ?></a>
+                        </li>                        
+                        <li>
+                            <a href="https://tanzlii.org/"><?= Yii::t('app', 'Decisions'); ?></a>
+                        </li>
                         <li class="has-submenu">
-                            <a href="#"><?= Yii::t('app', 'Portal'); ?> +</a>
+                            <a href="#"><?= Yii::t('app', 'More Pages'); ?> +</a>
                             <div class="mainmenu-submenu">
                                 <div class="mainmenu-submenu-inner"> 
                                     <div>
                                         <h4>ABOUT JUDICIARY</h4>
                                         <ul>
-                                            <li><a href="index.html">The Judiciary</a></li>
-                                            <li><a href="index.html">Primary Functions and Values</a></li>
-                                            <li><a href="index.html">Roles and Functions</a></li>
-                                            <li><a href="index.html">Areas for Court Excellence</a></li>
-                                            <li><a href="index.html">Organization Structure</a></li>
-                                            <li><a href="index.html">News and Events</a></li>
-                                            <li><a href="index.html">Judiciary Hierarchy</a></li>
-                                            <li><a href="index.html">Judges</a></li>
-                                            <li><a href="page-homepage-sample.html">Database</a></li>
+                                            <li><a href="#">The Judiciary</a></li>
+                                            <li><a href="#">Primary Functions and Values</a></li>
+                                            <li><a href="#">Roles and Functions</a></li>
+                                            <li><a href="#">Areas for Court Excellence</a></li>
+                                            <li><a href="#">Organization Structure</a></li>
+                                            <li><a href="#">News and Events</a></li>
+                                            <li><a href="#">Judiciary Hierarchy</a></li>
+                                            <li><a href="#">Judges</a></li>
+                                            <li><a href="#">Database</a></li>
                                         </ul>
                                         <h4>PROJECTS</h4>
                                         <ul>
-                                            <li><a href="page-services-1-column.html">Ongoing Projects</a></li>
-                                            <li><a href="page-services-3-columns.html">Completed Projects</a></li>
-                                            <li><a href="page-services-4-columns.html">Proposed Projects</a></li>
+                                            <li><a href="#">Ongoing Projects</a></li>
+                                            <li><a href="#">Completed Projects</a></li>
+                                            <li><a href="#">Proposed Projects</a></li>
                                         </ul>
                                         <h4>REPORTS</h4>
                                         <ul>
-                                            <li><a href="page-team.html">Statistics Reports</a></li>
-                                            <li><a href="page-vacancies.html">Annual Reports</a></li>
-                                            <li><a href="page-job-details.html">Special Reports</a></li>
-                                            <li><a href="page-job-details.html">Others</a></li>
+                                            <li><a href="#">Statistics Reports</a></li>
+                                            <li><a href="#">Annual Reports</a></li>
+                                            <li><a href="#">Special Reports</a></li>
+                                            <li><a href="#">Others</a></li>
                                         </ul>
                                     </div>
                                     <div>
                                         <h4>LAW,RULES &ACTS</h4>
                                         <ul>
-                                            <li><a href="page-portfolio-2-columns-1.html">Decisions</a></li>
-                                            <li><a href="page-portfolio-2-columns-2.html">Rules & Procedures</a></li>
-                                            <li><a href="page-portfolio-3-columns-1.html">Draft Rules</a></li>
-                                            <li><a href="page-portfolio-3-columns-2.html">ACTS</a></li>
+                                            <li><a href="#">Decisions</a></li>
+                                            <li><a href="#">Rules & Procedures</a></li>
+                                            <li><a href="#">Draft Rules</a></li>
+                                            <li><a href="#">ACTS</a></li>
                                         </ul>
                                         <h4>COURT FORMS</h4>
                                         <ul>
-                                            <li><a href="page-about-us.html">Civil Court Forms</a></li>
-                                            <li><a href="page-contact-us.html">Criminal Court Forms</a></li>
-                                            <li><a href="page-faq.html">PC-Probate & Administration</a></li>
-                                            <li><a href="page-testimonials-clients.html">HC-Probate & Administration Forms</a></li>
+                                            <li><a href="#">Civil Court Forms</a></li>
+                                            <li><a href="#">Criminal Court Forms</a></li>
+                                            <li><a href="#">PC-Probate & Administration</a></li>
+                                            <li><a href="#">HC-Probate & Administration Forms</a></li>
                                         </ul>
                                         <h4>COURT BROKERS AND FEES</h4>
                                         <ul>
-                                            <li><a href="page-products-3-columns.html">Court Brokers, 2017</a></li>
-                                            <li><a href="page-products-4-columns.html">Court fees</a></li>
+                                            <li><a href="#">Court Brokers, 2017</a></li>
+                                            <li><a href="#">Court fees</a></li>
                                         </ul>
                                         <h4><?=Yii::t('app', 'VACANCIES') ?></h4>
                                         <ul>
@@ -188,38 +205,29 @@ AppAsset::register($this);
                                     <div>
                                         <h4>MULTIMEDIA</h4>
                                         <ul>
-                                            <li><a href="page-blog-posts.html">Haki Bulletin Newsletter</a></li>
-                                            <li><a href="page-blog-post-right-sidebar.html">Speech</a></li>
-                                            <li><a href="page-blog-post-left-sidebar.html">Public Notice</a></li>
-                                            <li><a href="page-news.html">Publications</a></li>
-                                            <li><a href="page-news.html">Essential Reading</a></li>
-                                            <li><a href="page-news.html">Audio</a></li>
-                                            <li><a href="page-news.html">Video</a></li>
-                                            <li><a href="page-news.html">Radio & TV Programs</a></li>
-                                            <li><a href="page-news.html">Downloads</a></li>
-                                            <li><a href="page-news.html">Photo gallery</a></li>
+                                            <li><a href="#">Haki Bulletin Newsletter</a></li>
+                                            <li><a href="#">Speech</a></li>
+                                            <li><a href="#">Public Notice</a></li>
+                                            <li><a href="#">Publications</a></li>
+                                            <li><a href="#">Essential Reading</a></li>
+                                            <li><a href="#">Audio</a></li>
+                                            <li><a href="#">Video</a></li>
+                                            <li><a href="#">Radio & TV Programs</a></li>
+                                            <li><a href="#">Downloads</a></li>
+                                            <li><a href="#">Photo gallery</a></li>
                                         </ul>
                                         <h4>CONTACT US</h4>
                                         <ul>
-                                            <li><a href="page-products-3-columns.html">Judiciary Contact Emails</a></li>
-                                            <li><a href="page-products-4-columns.html">Contact Address</a></li>
-                                            <li><a href="page-products-4-columns.html">Advocates</a></li>
-                                            <li><a href="page-products-4-columns.html">Feedback</a></li>
-                                            <li><a href="page-products-4-columns.html">Connect With Us</a></li>
+                                            <li><a href="#">Judiciary Contact Emails</a></li>
+                                            <li><a href="#">Contact Address</a></li>
+                                            <li><a href="#">Advocates</a></li>
+                                            <li><a href="#">Feedback</a></li>
+                                            <li><a href="#">Connect With Us</a></li>
                                             <li><a href="<?= Url::to(['site/management'])?>"><?= Yii::t('app', 'Management (Auth.)'); ?></a></li>
                                         </ul>
                                     </div>
                                 </div><!-- /mainmenu-submenu-inner -->
                             </div><!-- /mainmenu-submenu -->
-                        </li>
-                        <li>
-                            <a href="<?= Url::to(['/blog'])?>"><?= Yii::t('app', 'Our Blog'); ?></a>
-                        </li>
-                         <li>
-                            <a href="https://mail.judiciary.go.tz"><?= Yii::t('app', 'Staff Emails'); ?></a>
-                        </li>
-                         <li>
-                            <a href="<?= Url::to(['/blog'])?>"><?= Yii::t('app', 'Tenders'); ?></a>
                         </li>
                     </ul>
                 </nav>
@@ -232,9 +240,32 @@ AppAsset::register($this);
 <div class="flag-color3">
 </div>       
         <?= Breadcrumbs::widget([
+            'homeLink' => [ 
+                      'label' => Yii::t('yii', 'Management Apps'),
+                      'url' => ['site/management'],
+                 ],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= Alert::widget() ?>
+        <?=Alert::widget() ?>
+        <?php 
+           /* echo Growl::widget([
+            'type' => Growl::TYPE_SUCCESS,
+            'title' => '<h4>You do not have privilege for this action</h4>',
+            'icon' => 'glyphicon glyphicon-info-sign',
+            'body' => ,
+            'showSeparator' => true,
+            //'linkUrl' => 'index.php?r=files%2Findex',
+            'delay' => 0,
+            'pluginOptions' => [
+                'delay' => 15000,
+                'showProgressbar' => true,
+                'placement' => [
+                    'from' => 'top',
+                    'align' => 'center',
+                ]
+            ]
+        ]);*/
+        ?>
         <?= $content ?>
 <!-- <footer class="footer"> -->
     <!-- Footer -->
@@ -245,7 +276,7 @@ AppAsset::register($this);
                                 <h3><?=Yii::t('app', 'Chief Justice Document'); ?></h3>
                                 <div class="portfolio-item">
                                     <div class="video-wrapper">
-                                        <iframe src="uploads/jaji.mp4" width="200" height="100" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                                        <img draggable="false" src="img/coa.jpg" alt="CoA">
                                     </div>
                                 </div>
                             </div>

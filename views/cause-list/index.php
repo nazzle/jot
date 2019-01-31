@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CauseListSearch */
@@ -16,8 +18,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Cause List'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Cause List'), ['create'], ['class' => 'btn btn-success']) ?> 
+        <?= Html::button('Upload Cause Lists (Excel)', ['value' => Url::to('index.php?r=cause-list/uploadexcel'), 'class' => 'btn btn-success', 'id' =>'modalButton']) ?>
     </p>
+    <?php
+        Modal::begin([
+                'header' => '<h4> Uploading Cause Lists </h4>',
+                'id' => 'modal',
+                'size' => 'modal-lg', 
+                'options'=> [
+                    'data-backdrop'=>'static',
+                    //'data-keyboard'=>'false',
+                ],
+               ]);
+               echo "<div id='modalContent'></div>";
+               
+           Modal::end();    
+    ?>    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,14 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'dates',
             'case_number',
             'parties',
             'witness',
-            //'advocate_plaintiff',
-            //'advocate_defendant',
-            //'division',
+            'advocate_plaintiff',
+            'advocate_defendant',
+            'division',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

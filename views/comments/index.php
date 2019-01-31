@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CommentsSearch */
@@ -22,15 +23,40 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions'=>function($model){
+            if($model->status == 2){
+                return ['class' => 'success'];
+            }else {
+               return ['class' => 'danger']; 
+           }
+          },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'post_id',
+            [
+                'attribute' => 'post_id',
+                'value' => 'postid.title',
+            ],
             'username',
             'comment:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+        'class' => 'yii\grid\ActionColumn',
+        'header'=>'Approve',       
+        'template' => '{update}',
+        'buttons' => [
+                'update' => function ($id, $model) {
+                                    return Html::a(
+                                            '<span class="fa fa-check-square-o"> </span>' 
+                                               ,Url::to(['comments/approve','id'=>$model->id]));      
+                             },                
+                         ],
+                     ],  
+
+            ['class' => 'yii\grid\ActionColumn',
+                'header' => 'Delete',
+                'template' => '{delete}',
+        ],
         ],
     ]); ?>
 </div>

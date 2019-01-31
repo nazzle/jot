@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Divisions;
 
 /**
  * This is the model class for table "cause_list".
@@ -21,6 +22,9 @@ class CauseList extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public $excel;
+
     public static function tableName()
     {
         return 'cause_list';
@@ -34,6 +38,7 @@ class CauseList extends \yii\db\ActiveRecord
         return [
             [['dates', 'case_number', 'parties', 'witness', 'advocate_plaintiff', 'advocate_defendant', 'division'], 'required'],
             [['witness', 'division'], 'integer'],
+            [['excel'], 'file'],
             [['dates', 'parties'], 'string', 'max' => 225],
             [['case_number'], 'string', 'max' => 115],
             [['advocate_plaintiff', 'advocate_defendant'], 'string', 'max' => 50],
@@ -54,6 +59,15 @@ class CauseList extends \yii\db\ActiveRecord
             'advocate_plaintiff' => Yii::t('app', 'Advocate Plaintiff'),
             'advocate_defendant' => Yii::t('app', 'Advocate Defendant'),
             'division' => Yii::t('app', 'Division'),
+            'excel' => Yii::t('app', 'Excel File'),
         ];
+    }
+
+     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDiv()
+    {
+       return $this->hasOne(Divisions::className(), ['id' => 'division']);
     }
 }

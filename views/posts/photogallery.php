@@ -48,16 +48,16 @@ $this->params['breadcrumbs'][] = $this->title;*/
 									<div class="date">'.$photo['time'].'</div>
 								</div>
 								<div class="post-comments-count">
-									<a href="page-blog-post-right-sidebar.html" title="Show Comments"><i class="glyphicon glyphicon-time icon-white"></i>Posted Time</a>
+									<a href=" '.Url::to(['posts/webview','id'=>$photo['id']]).' " title="Show Comments"><i class="glyphicon glyphicon-time icon-white"></i>Posted Time</a>
 								</div>
 							</div>
 							<!-- End Post Info -->
 							<!-- Post Image -->
-							<a href="page-blog-post-right-sidebar.html"><img src="'.$photo['attachment'].'" class="post-image" alt="Post Title"></a>
+							<a href=" '.Url::to(['posts/webview','id'=>$photo['id']]).' "><img src="'.$photo['attachment'].'" class="post-image" alt="Post Title"></a>
 							<!-- End Post Image -->
 							<!-- Post Title & Summary -->
 							<div class="post-title">
-								<h3><a href="page-blog-post-right-sidebar.html">'.$photo['title'].'</a></h3>
+								<h3><a href=" '.Url::to(['posts/webview','id'=>$photo['id']]).' ">'.$photo['title'].'</a></h3>
 							</div>
 							<!-- End Post Title & Summary -->
 							<div class="post-more">

@@ -7,8 +7,10 @@ use app\models\UsefulAttachments;
 use app\models\UsefulAttachmentsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
 
 /**
  * UsefulAttachmentsController implements the CRUD actions for UsefulAttachments model.
@@ -21,6 +23,17 @@ class UsefulAttachmentsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'errorForm'],
+                'rules' => [
+                    [
+                        //'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,13 +49,18 @@ class UsefulAttachmentsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UsefulAttachmentsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if(Yii::$app->user->can('IO-MR'))
+           {
+                $searchModel = new UsefulAttachmentsSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }         
     }
 
     /**
@@ -53,9 +71,14 @@ class UsefulAttachmentsController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if(Yii::$app->user->can('IO-MR'))
+           {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }     
     }
 
     /**
@@ -65,30 +88,52 @@ class UsefulAttachmentsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new UsefulAttachments();
+        if(Yii::$app->user->can('IO-MR'))
+           {
+                $model = new UsefulAttachments();
 
-        date_default_timezone_set("Africa/Dar_es_Salaam");
+                date_default_timezone_set("Africa/Dar_es_Salaam");
 
-        if ($model->load(Yii::$app->request->post())) 
-        {
+                if ($model->load(Yii::$app->request->post())) 
+                {
 
-            //Get instance of Uploaded file
-            $model->file = UploadedFile::getInstance($model, 'file');               
-            $model->file->saveAs( 'useful_attachments/' . str_replace(' ', '_', $model->descriptions) . '.' . $model->file->extension );
+                    //Get instance of Uploaded file
+                    $model->file = UploadedFile::getInstance($model, 'file'); 
+                    if ($model->file != null) {              
+                        $model->file->saveAs( 'main_registry/useful_attachments/' . str_replace(' ', '_', $model->file->baseName) . '.' . $model->file->extension );
 
-            //Save the path to the db
-            $model->attachment = '/useful_attachments/' . str_replace(' ', '_', $model->descriptions) . '.' . $model->file->extension;
-            $model->upload_time = date('y-m-d');
-            $model->save();
-            /*print_r($model->getErrors());
-            die();*/
-            
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+                        //Save the path to the db
+                        $model->attachment = '/main_registry/useful_attachments/' . str_replace(' ', '_', $model->file->baseName) . '.' . $model->file->extension;
+                        $model->upload_time = date('y-m-d');
+                        $model->save();
+                        /*print_r($model->getErrors());
+                        die();*/
+                        
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }else {
+                        return $this->render('errorForm', [
+                        'model' => $model,
+                    ]);
+                   }          
+                }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+         } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }         
+    }
+
+     /**
+     * this returns an error form when use mistakenly submit wrong details.
+     * or submit empty form.
+     * @return string
+     */
+    public function actionErrorForm()
+    {
+        
+        return $this->render('errorForm');
     }
 
     /**
@@ -101,14 +146,19 @@ class UsefulAttachmentsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if(Yii::$app->user->can('IO-MR'))
+           {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+         } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "You can edit only the attachments that you published."));
+        }     
     }
 
     /**
@@ -120,9 +170,14 @@ class UsefulAttachmentsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if(Yii::$app->user->can('IO-MR'))
+           {
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+         } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "You can delete only the attachments that you published."));
+        }     
     }
 
     /**

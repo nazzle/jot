@@ -7,8 +7,10 @@ use app\models\Posts;
 use app\models\PostsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -21,6 +23,17 @@ class PostsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        //'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,13 +49,38 @@ class PostsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PostsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if(Yii::$app->user->can('IO-MR'))
+        {
+            $searchModel = new PostsSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $dataProvider->setSort([
+                            'attributes' => [
+                                'id' => [
+                                    'asc' => ['id' => SORT_ASC],
+                                    'desc' => ['id' => SORT_DESC],
+                                    'default' => SORT_DESC,
+                                ],
+                                
+                                'time' => [
+                                    'asc' => ['id' => SORT_ASC],
+                                    'desc' => ['id' => SORT_DESC],
+                                    'default' => SORT_DESC
+                                ],
+                                
+                            ],
+                            'defaultOrder' => [
+                                'id' => SORT_DESC,
+                                'time' => SORT_DESC,
+                            ]
+                        ]);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }     
     }
 
     /**
@@ -53,9 +91,14 @@ class PostsController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if(Yii::$app->user->can('IO-MR'))
+        {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }     
     }
 
     /**
@@ -79,6 +122,14 @@ class PostsController extends Controller
         ]);
     }
 
+     /**
+    *This action renders page tha displays all posts
+    **/
+    public function actionAllwebposts()
+    {
+        return $this->render('allwebposts');
+    }
+
     /**
      * Creates a new Posts model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -86,28 +137,52 @@ class PostsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Posts();
-
-        if ($model->load(Yii::$app->request->post())) 
+        if(Yii::$app->user->can('IO-MR'))
         {
-            //Get instance of Uploaded file
-            $model->photo = UploadedFile::getInstance($model, 'photo');               
-            $model->photo->saveAs( 'posts/' . str_replace(' ', '_', $model->photo->baseName) . '.' . $model->photo->extension );
+            $model = new Posts();
+            date_default_timezone_set("Africa/Dar_es_Salaam");
 
-            //Save the path to the db
-            $model->attachment = 'posts/' . str_replace(' ', '_', $model->photo->baseName) . '.' . $model->photo->extension;
-            $model->time = date('y-m-d h:m:s');
-            $model->author = 1;
-            $model->save();
-            /*print_r($model->getErrors());
-            die();*/
+            if ($model->load(Yii::$app->request->post())) 
+            {
+                //Get instance of Uploaded file
+                $model->photo = UploadedFile::getInstance($model, 'photo');
+                if ($model->photo != null) {
+                        $model->photo->saveAs( 'main_registry/posts/' . str_replace(' ', '_', $model->photo->baseName) . '.' . $model->photo->extension );
 
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+                        //Save the path to the db
+                        $model->attachment = 'main_registry/posts/' . str_replace(' ', '_', $model->photo->baseName) . '.' . $model->photo->extension;
+                        $model->time = date('Y-m-d');
+                        $model->author = Yii::$app->user->id;
+                        $model->save();
+                      /*  print_r($model->getErrors());
+                        die();*/
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+                        return $this->redirect(['view', 'id' => $model->id]);           
+               }else {
+                    return $this->render('errorForm', [
+                    'model' => $model,
+                ]);
+               }               
+               
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }     
+    }
+
+    /**
+     * this returns an error form when use mistakenly submit wrong details.
+     * or submit empty form.
+     * @return string
+     */
+    public function actionErrorForm()
+    {
+        
+        return $this->render('errorForm');
     }
 
     /**
@@ -120,14 +195,19 @@ class PostsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if(Yii::$app->user->can('IO-MR') && Yii::$app->user->id == $model->author)
+        {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+         } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "You can edit only the post that you published."));
+        }      
     }
 
     /**
@@ -139,9 +219,15 @@ class PostsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+         $model = $this->findModel($id);
+        if(Yii::$app->user->can('IO-MR') && Yii::$app->user->id == $model->author)
+        {
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "You can delete only the posts that you published."));
+        }     
     }
 
     /**

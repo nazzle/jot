@@ -33,10 +33,10 @@ class AppAsset extends AssetBundle
         'css/style.css',        
     ];
     public $js = [
+        'js/main.js',        
         //'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-        //'https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-        'js/jquery1.9.1.min.js',
-        'js/main.js',
+        'https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+        //'js/jquery1.9.1.min.js',
         'js/modernizr-2.6.2-respond-1.1.0.min.js',
         'js/bootstrap.min.js',
         'http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js',
@@ -45,6 +45,7 @@ class AppAsset extends AssetBundle
         'js/jquery.bxslider.js',
         'js/main-menu.js',
         'js/template.js',
+        'js/formpop.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

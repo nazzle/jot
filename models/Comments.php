@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Posts;
 
 /**
  * This is the model class for table "comments".
@@ -28,9 +29,10 @@ class Comments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['post_id', 'username', 'comment'], 'required'],
-            [['post_id'], 'integer'],
+            [['post_id', 'username', 'comment', 'status'], 'required'],
+            [['post_id', 'status'], 'integer'],
             [['comment'], 'string'],
+            [['time'], 'safe'],
             [['username'], 'string', 'max' => 25],
         ];
     }
@@ -45,6 +47,16 @@ class Comments extends \yii\db\ActiveRecord
             'post_id' => Yii::t('app', 'Post ID'),
             'username' => Yii::t('app', 'Username'),
             'comment' => Yii::t('app', 'Comment'),
+            'time' => Yii::t('app', 'Time'),
+            'status' => Yii::t('app', 'Status'),
         ];
+    }
+
+     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPostid()
+    {
+       return $this->hasOne(Posts::className(), ['id' => 'post_id']);
     }
 }

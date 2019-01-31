@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CauseListSearch */
@@ -24,6 +25,7 @@ $this->title = Yii::t('app', 'Cause Lists');
             </div>
         </div>
 <div class="container">
+    <?php Pjax::begin(['enablePushState'=>false]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -37,8 +39,13 @@ $this->title = Yii::t('app', 'Cause Lists');
             'witness',
             'advocate_plaintiff',
             'advocate_defendant',
-            'division',
+           // 'division',
+            [
+                'attribute'=>'division',
+                'value'=>'div.division',
+            ],
         ],
     ]); ?>
+    <?php Pjax::end(); ?>
 </div>
 </div>

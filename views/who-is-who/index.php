@@ -26,11 +26,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            //'photo',
+           /* array(
+            'format' => 'image',
+            'value'=>function($data) { return $data->imageurl; },
+               ),*/
+            [
+            'attribute' => 'photo',
+            'format' => 'html',    
+            'value' => function ($data) {
+                return Html::img(Yii::getAlias('@web').'/'. $data['photo'],
+                    ['width' => '70px']);
+                },
+            ],   
             'id',
-            'photo',
             'name',
             'position',
-            'posted_by',
+            [
+                'attribute' => 'posted_by',
+                'value' => 'namez.username',
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

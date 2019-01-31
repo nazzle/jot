@@ -7,7 +7,9 @@ use app\models\UserResponses;
 use app\models\UserResponsesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UserResponsesController implements the CRUD actions for UserResponses model.
@@ -20,6 +22,17 @@ class UserResponsesController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        //'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -35,13 +48,18 @@ class UserResponsesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UserResponsesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if(Yii::$app->user->can('IO-MR'))
+          {
+            $searchModel = new UserResponsesSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }     
     }
 
     /**
@@ -52,9 +70,14 @@ class UserResponsesController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if(Yii::$app->user->can('IO-MR'))
+          {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }    
     }
 
     /**
@@ -64,15 +87,29 @@ class UserResponsesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new UserResponses();
+        if(Yii::$app->user->can('IO-MR'))
+          {
+            $model = new UserResponses();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['site/home']);
-        }
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['site/home']);
+            }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }    
+    }
+
+    /**
+    * This action renders the FAQs page for viewers
+    *
+    **/
+    public function actionFaqs()
+    {
+        return $this->render('faqs');
     }
 
     /**
@@ -86,13 +123,19 @@ class UserResponsesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+         if(Yii::$app->user->can('IO-MR'))
+          {
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+         } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }     
     }
 
     /**
@@ -104,9 +147,14 @@ class UserResponsesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+         if(Yii::$app->user->can('IO-MR'))
+          {
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }      
     }
 
     /**

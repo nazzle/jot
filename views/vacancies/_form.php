@@ -22,8 +22,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'how_to_apply')->textarea(['rows' => 3]) ?>
 
-    <?= $form->field($model, 'posted_by')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', '<span class="fa fa-reply"></span> Publish'), ['class' => 'btn btn-success']) ?>
     </div>

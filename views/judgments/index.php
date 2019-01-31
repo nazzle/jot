@@ -25,12 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'division',
+            [
+                'attribute' => 'division',
+                'value' => 'location.location_name',
+            ],
             'case_no',
             'parties',
             'descriptions:ntext',
-            //'attachment',
+            'attachment',
+            [
+                'attribute' => 'published_by',
+                'value' => 'name.username',
+            ],
+            'time',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

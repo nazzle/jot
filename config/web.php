@@ -31,6 +31,11 @@ $config = [
                 ],
             ],
         ],
+        'authManager'=>
+        [
+            'class'=>'yii\rbac\DbManager',
+            'defaultRoles' => ['NONE'],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'mylangproject',
@@ -76,9 +81,30 @@ $config = [
         ],
     'params' => $params,
     'modules' => [
+        'social' => [
+        // the module class
+        'class' => 'kartik\social\Module', 
+             // the global settings for the facebook widget
+            'facebook' => [
+                'appId' => 'FACEBOOK_APP_ID',
+                      ],
+             // the global settings for the google-analytics widget
+            'googleAnalytics' => [
+                'id' => 'UA-133182113-1',
+                'domain' => 'https://jotweb.judiciary.go.tz/'
+            ],          
+        ],
         'pdfjs' => [
              'class' => '\yii2assets\pdfjs\Module',
          ],
+         'gridview' =>  [
+            'class' => '\kartik\grid\Module',
+            // enter optional module parameters below - only if you need to  
+            // use your own export download action or custom translation 
+            // message source
+             'downloadAction' => 'gridview/export/download',
+            // 'i18n' => []
+            ],
         'jdu' => [
             'class' => 'app\modules\jdu\Jdu',
         ],

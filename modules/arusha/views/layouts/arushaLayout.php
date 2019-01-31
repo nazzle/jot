@@ -142,21 +142,21 @@ AppAsset::register($this);
 </div> 
 
 <div class="row" style="background-image: url('img/homepage-slider/slider-bg3.jpg');">
-    <div class="container">
+    <div class="container" align="center">
     <?= \melledijkstra\slideshow\Slideshow::widget([
     'items' => [
         [
-            'content' =>  '<img src="img/pichazaviongozi/jajimkuu.jpg" alt="Item Name" height="620" width="1000">',
+            'content' =>  '<img src="posts/web1.jpg" alt="Item Name" height="480" width="920">',
             'active' => true,
         ],
         [
-            'content' => '<img src="img/pichazaviongozi/katanga.jpg" alt="Item Name" height="620" width="1080">',
+            'content' => '<img src="img/pichazaviongozi/katanga.jpg" alt="Item Name" height="480" width="920">',
         ],
         [
-            'content' => '<img src="img/pichazaviongozi/katarina.jpg" alt="Item Name" height="620" width="1080">',
+            'content' => '<img src="img/pichazaviongozi/katarina.jpg" alt="Item Name" height="480" width="920">',
         ],
         [
-            'content' => '<img src="img/pichazaviongozi/mbuki.jpg" alt="Item Name" height="620" width="1080">',
+            'content' => '<img src="img/pichazaviongozi/mbuki.jpg" alt="Item Name" height="480" width="920">',
         ],
     ],
     // The client options will be passed to the Javascript swiper library

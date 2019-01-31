@@ -47,12 +47,25 @@ class WhoIsWho extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
+            'id' => Yii::t('app', 'Seniority'),
             'photo' => Yii::t('app', 'Photo'),
             'name' => Yii::t('app', 'Name'),
             'position' => Yii::t('app', 'Position'),
             'posted_by' => Yii::t('app', 'Posted By'),
             'attachment' => Yii::t('app', 'Photo'),
         ];
+    }
+
+    public function getImageurl()
+    {
+        return \Yii::$app->request->BaseUrl.'/'.$this->photo;
+    }
+
+     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNamez()
+    {
+       return $this->hasOne(User::className(), ['id' => 'posted_by']);
     }
 }

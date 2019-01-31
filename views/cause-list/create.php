@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\CauseList */
 
@@ -12,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container">
 
-    <h2><?= Html::encode($this->title) ?></h2>
+    <h2><?=Yii::t('app', 'Add Cause List') ?></h2>
 
     <?= $this->render('_form', [
         'model' => $model,

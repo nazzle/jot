@@ -25,10 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'id',
+                [
+                'attribute' => 'attachment',
+                'format' => 'html',    
+                'value' => function ($data) {
+                    return Html::img(Yii::getAlias('@web').'/img/filelogo.ico',
+                        ['width' => '70px']);
+                    },
+                ],   
                 'category',
                 'descriptions',
-                'attachment',
                 'upload_time',
 
                 ['class' => 'yii\grid\ActionColumn'],

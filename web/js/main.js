@@ -1,4 +1,4 @@
-$(function(){
+jQuery(function($){
     $(document).on('click','.language',function(){
       var lang = $(this).attr('id');
 
@@ -7,21 +7,21 @@ $(function(){
       });
     });
 
-//    $(document).on('click','.fc-day',function(){
-//      var date = $(this).attr('data-date');
-//
-//      $.get('index.php?r=event/create',{'date':date},function(data){
-//        $('#modal').modal('show')
-//                .find('#modalContent')
-//                .html(data);
-//      });
-//    });
-//
-//    // get the click of create button
-//    $('#modalButton').click(function (){
-//          $('#modal').modal('show')
-//              .find('#modalContent')
-//              .load($(this).attr('value'));
-//    });
+   $(document).on('click','.fc-day',function(){
+     var date = $(this).attr('data-date');
+
+     $.get('index.php?r=event/create',{'date':date},function(data){
+       $('#modal').modal('show')
+               .find('#modalContent')
+               .html(data);
+     });
+   });
+
+   // get the click of create button
+   $('#modalButton').click(function (){
+         $('#modal').modal('show')
+             .find('#modalContent')
+             .load($(this).attr('value'));
+   });
 });
 

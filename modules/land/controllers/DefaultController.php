@@ -15,6 +15,17 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+    	$this->layout = 'landLayout';
         return $this->render('index');
+    }
+
+    /**
+    *This action is for land division staff in managing their division website subdomain
+    **/
+    public function actionManagement()
+    {
+    	$this->layout = 'landLayout';
+
+    	return $this->render('management');
     }
 }

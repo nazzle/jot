@@ -30,7 +30,7 @@ class Vacancies extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['position', 'duties', 'type', 'location', 'posted_by','how_to_apply'], 'required'],
+            [['position', 'duties', 'type', 'location', 'posted_by','time','how_to_apply'], 'required'],
             [['duties', 'type','how_to_apply'], 'string'],
             [['posted_by'], 'integer'],
             [['position'], 'string', 'max' => 50],

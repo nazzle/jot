@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
 
 /**
  * WhoIsWhoController implements the CRUD actions for WhoIsWho model.
@@ -21,6 +22,17 @@ class WhoIsWhoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        //'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -73,11 +85,11 @@ class WhoIsWhoController extends Controller
         {
             //get instance of uploaded file
             $model->attachment = UploadedFile::getInstance($model, 'attachment');               
-            $model->attachment->saveAs( 'who_is_who/' . str_replace(' ', '_', $model->attachment->baseName) . '.' . $model->attachment->extension );
+            $model->attachment->saveAs( 'main_registry/who_is_who/' . str_replace(' ', '_', $model->attachment->baseName) . '.' . $model->attachment->extension );
 
             //Saving the attachment path to the database
-            $model->photo = 'who_is_who/' . str_replace(' ', '_', $model->attachment->baseName) . '.' . $model->attachment->extension;
-            $model->posted_by = 1;
+            $model->photo = 'main_registry/who_is_who/' . str_replace(' ', '_', $model->attachment->baseName) . '.' . $model->attachment->extension;
+            $model->posted_by = Yii::$app->user->id;;
             $model->upload_time = date('y-m-d h:m:s');
             $model->save();
             /*print_r($model->getErrors());

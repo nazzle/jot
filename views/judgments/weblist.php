@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\JudgmentsSearch */
@@ -39,7 +40,7 @@ $this->title = Yii::t('app', 'Judgments');
                                 <div id="collapse11" class="accordion-body collapse">
                                     <div class="accordion-inner">
                                         <div class="answer"><?= Yii::t('app', 'Uploads'); ?>:</div>
-                                        <p><a href="#"><?= Yii::t('app', 'Judgments'); ?></a></p>
+                                        <p><a href="<?= Url::to(['judgments/appeal'])?>"><?= Yii::t('app', 'Judgments'); ?></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +53,7 @@ $this->title = Yii::t('app', 'Judgments');
                                 <div id="collapse12" class="accordion-body collapse">
                                     <div class="accordion-inner">
                                         <div class="answer"><?= Yii::t('app', 'Uploads'); ?>:</div>
-                                        <p><a href="#"><?= Yii::t('app', 'Judgments'); ?></a></p>
+                                        <p><a href="<?= Url::to(['judgments/mainregistry'])?>"><?= Yii::t('app', 'Judgments'); ?></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +84,7 @@ $this->title = Yii::t('app', 'Judgments');
                                     <div class="accordion-inner">
                                         <div class="answer"><?= Yii::t('app', 'Divisions'); ?>:</div>
                                         <p><a href="#"><?= Yii::t('app', 'Commercial Court'); ?></a></p>
-                                        <p><a href="#"><?= Yii::t('app', 'Land Court'); ?></a></p>
+                                        <p><a href="<?= Url::to(['judgments/land'])?>"><?= Yii::t('app', 'Land Court'); ?></a></p>
                                         <p><a href="#"><?= Yii::t('app', 'Labour Court'); ?></a></p>
                                         <p><a href="#"><?= Yii::t('app', 'High court division of corruption and economic crimes'); ?></a></p>
                                     </div>

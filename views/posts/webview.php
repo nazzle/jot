@@ -36,15 +36,15 @@ $this->params['breadcrumbs'][] = $this->title;*/
                             <div class="single-post-title">
                                 <h3><?= $model->title ?></h3>
                             </div>
-                            <?php $comments = Comments::find()->where(['post_id'=>$model->id])->all(); ?>
+                            <?php $comments = Comments::find()->andWhere(['post_id'=>$model->id])->andWhere(['status'=>2])->all(); ?>
                             <div class="single-post-info">
-                                <i class="glyphicon glyphicon-time"></i><?= $model->time ?> <a href="#" title="Show Comments"><i class="glyphicon glyphicon-comment"></i><?= count($comments) ?></a>
+                                <i class="glyphicon glyphicon-time"></i><?=date('d-m-Y', strtotime($model->time)) ?> <a href="#" title="Show Comments"><i class="glyphicon glyphicon-comment"></i><?= count($comments) ?></a>
                             </div>
                             <div class="single-post-image">
                                 <img src=<?= $model->attachment ?> alt="Photo Loading...">
                             </div>
                             <div class="single-post-content">
-                                <h3>By <?= $model->author ?> <?= $model->time ?></h3>
+                                <h6><?=DetailView::widget(['model'=>$model,'attributes' => ['name.username',],'template'=>'<tr><td width="20%">Published By:</td><th>{value}</th></tr>',])?> </h6>
                                 <p>
                                     <?= $model->descriptions ?>
                                 </p>
@@ -67,11 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
                                                             </p>
                                                             <!-- Comment Controls -->
                                                             <div class="comment-actions">
-                                                                <span class="comment-date">June 10th, 2013 3:16 pm</span>
-                                                                <a href="#" data-toggle="tooltip" data-original-title="Vote Up" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-up"></i></a>
-                                                                <a href="#" data-toggle="tooltip" data-original-title="Vote Down" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-down"></i></a>
-                                                                <span class="label label-success">+8</span>
-                                                                <a href="#" class="btn btn-micro btn-grey comment-reply-btn"><i class="glyphicon glyphicon-share-alt"></i> Reply</a>
+                                                                <span class="comment-date">'.date('d-m-Y', strtotime($comment['time'])).'</span>
                                                             </div>
                                                         </div>
                                                     </li>';}}
@@ -152,7 +148,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
                         <h4><?= Yii::t('app', 'Recent Posts'); ?></h4>
                         <ul class="recent-posts">
                             <?php    
-                            $posts = Posts::find()->all();                                                            
+                            $posts = Posts::find()->limit('10')->orderBy(['id' => SORT_DESC])->all();                                                            
                                  if(!empty($posts))
                                      {
                                          foreach($posts as $post)
@@ -164,7 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
                         </ul>
                         <h4><?= Yii::t('app', 'Categories'); ?></h4>
                         <ul class="blog-categories">
-                            <li><a href="#"><?= Yii::t('app', 'Photo Gallery'); ?></a></li>
+                            <li><a href="<?=Url::to(['posts/photogallery']) ?>"><?= Yii::t('app', 'Photo Gallery'); ?></a></li>
                             <li><a href="#"><?= Yii::t('app', 'Video Gallery'); ?></a></li>
                             <li><a href="#"><?= Yii::t('app', 'Frequently Asked Questions-FAQ'); ?></a></li>
                         </ul>

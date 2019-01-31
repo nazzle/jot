@@ -8,6 +8,8 @@ use app\models\VacanciesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
 
 /**
  * VacanciesController implements the CRUD actions for Vacancies model.
@@ -20,6 +22,17 @@ class VacanciesController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        //'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -35,13 +48,18 @@ class VacanciesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new VacanciesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if(Yii::$app->user->can('HR-MR'))
+        {
+            $searchModel = new VacanciesSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }     
     }
 
     /**
@@ -66,9 +84,14 @@ class VacanciesController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if(Yii::$app->user->can('HR-MR'))
+        {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }    
     }
 
     /**
@@ -78,15 +101,26 @@ class VacanciesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Vacancies();
+        if(Yii::$app->user->can('HR-MR'))
+        {
+                $model = new Vacancies();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+                if ($model->load(Yii::$app->request->post())) 
+                {
+                    $model->time = date('Y-m-d');
+                    $model->posted_by = Yii::$app->user->id;
+                    $model->save();
+                    /*  print_r($model->getErrors());
+                        die();*/
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }         
     }
 
     /**
@@ -100,13 +134,18 @@ class VacanciesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+        if(Yii::$app->user->can('HR-MR' && Yii::$app->user->id == $model->posted_by))
+        {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "You can edit only the vacancies that you published."));
+        }     
     }
 
     /**
@@ -118,9 +157,15 @@ class VacanciesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if(Yii::$app->user->can('HR-MR' && Yii::$app->user->id == $model->posted_by))
+        {
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "You can delete only the vacancies that you published."));
+        }    
     }
 
     /**

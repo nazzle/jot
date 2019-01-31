@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="container">
     <h2><?= Html::encode($this->title) ?></h2>
     <p>
-        <?= Html::a(Yii::t('app', 'Create Posts'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Publish Posts/Stories'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -27,7 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
            // 'id',
-            'attachment',
+            [
+            'attribute' => 'attachment',
+            'format' => 'html',    
+            'value' => function ($data) {
+                return Html::img(Yii::getAlias('@web').'/'. $data['attachment'],
+                    ['width' => '70px']);
+                },
+            ],   
             'title',
             'descriptions:ntext',
             'time',

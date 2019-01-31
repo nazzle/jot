@@ -7,7 +7,10 @@ use app\models\Judgments;
 use app\models\JudgmentsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 /**
  * JudgmentsController implements the CRUD actions for Judgments model.
@@ -20,6 +23,17 @@ class JudgmentsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'uploadjudgment'],
+                'rules' => [
+                    [
+                        //'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -39,6 +53,54 @@ class JudgmentsController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+     /**
+     * Lists Court of Appeal CauseList models for unauthorized users on web.
+     * @return mixed
+     */
+    public function actionAppeal()
+    {
+        $searchModel = new JudgmentsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['division'=>1]);
+
+        return $this->render('coa', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+     /**
+     * Lists Court of Appeal CauseList models for unauthorized users on web.
+     * @return mixed
+     */
+    public function actionMainregistry()
+    {
+        $searchModel = new JudgmentsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['division'=>2]);
+
+        return $this->render('mainregistry', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+     /**
+     * Lists Court of Appeal CauseList models for unauthorized users on web.
+     * @return mixed
+     */
+    public function actionLand()
+    {
+        $searchModel = new JudgmentsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['division'=>3]);
+
+        return $this->render('land', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -77,7 +139,7 @@ class JudgmentsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionUploadjudgment()
     {
         $model = new Judgments();
 
@@ -88,6 +150,71 @@ class JudgmentsController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+     /**
+     * Creates a new Judgments model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        if(Yii::$app->user->can('CMO'))
+            {
+            $model = new Judgments();
+
+            date_default_timezone_set("Africa/Dar_es_Salaam");
+
+            if ($model->load(Yii::$app->request->post())) 
+            {
+                 //Get instance of Uploaded file
+                $model->judgment = UploadedFile::getInstance($model, 'judgment');
+                if ($model->judgment != null) {
+
+                    if ($model->judgment->extension == 'pdf') {
+                        $model->judgment->saveAs( 'main_registry/judgments/' . str_replace(' ', '_', $model->judgment->baseName) . '.' . $model->judgment->extension );
+
+                       //Save the path to the db
+                        $model->attachment = '/main_registry/judgments/' . str_replace(' ', '_', $model->judgment->baseName) . '.' . $model->judgment->extension;
+                        $model->time = date('Y-m-d');
+                        $model->published_by = Yii::$app->user->id;
+                        $model->save();
+                       /* print_r($model->getErrors());
+                        die();*/
+
+                        return $this->redirect(['judgments/index']);
+
+                    }else {
+                     return $this->render('errorForm', [
+                        'model' => $model,
+                     ]);
+                     }      
+
+                }else {
+                       $model->time = date('Y-m-d');
+                       $model->published_by = Yii::$app->user->id;
+                       $model->save();
+                       return $this->redirect(['view', 'id' => $model->id]); 
+                     }          
+             }
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }  
+    }
+
+     /**
+     * this returns an error form when use mistakenly submit wrong details.
+     * or submit empty form.
+     * @return string
+     */
+    public function actionErrorForm()
+    {
+        
+        return $this->render('errorForm');
     }
 
     /**

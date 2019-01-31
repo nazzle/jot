@@ -27,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'message_type',
             'message:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

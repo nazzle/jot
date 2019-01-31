@@ -13,6 +13,8 @@ use app\models\ContactForm;
 use app\models\Posts;
 use Da\QrCode\QrCode;
 use app\models\UsefulAttachments;
+use app\models\SignupForm;
+use yii\web\ForbiddenHttpException;
 
 class SiteController extends Controller
 {
@@ -24,10 +26,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['home', 'view', 'create', 'update', 'delete', 'qr', 'management', 'signup', 'administration'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        //'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -65,7 +67,42 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('management');
+        $searchModel = new SourceMessageSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('home', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionAdministration()
+    {
+        if(Yii::$app->user->can('Administrator'))
+            {
+                 return $this->render('administration');
+         } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }             
+    }
+
+     /**
+     * Displays website analysis page.
+     *
+     * @return string
+     */
+    public function actionWebanalysis()
+    {
+        if(Yii::$app->user->can('Administrator'))
+            {
+                 return $this->render('webanalysis');
+         } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }             
     }
 
     /**
@@ -95,12 +132,7 @@ die();
      */
     public function actionHome()
     {
-        $searchModel = new SourceMessageSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        return $this->render('home', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('management');
     }
 
     /**
@@ -114,7 +146,7 @@ die();
     }
 
      /**
-     * Displays statistics ib details.
+     * This action is for displaying PDF files.
      *
      * @return string
      */
@@ -124,6 +156,17 @@ die();
         return $this->render('viewPDF',[
             'id' => $id,
         ]);
+    }
+
+     /**
+     * This action is for displaying documents folders.
+     *
+     * @return string
+     */
+    public function actionFolders()
+    {
+        
+        return $this->render('folders');
     }
 
     /**
@@ -182,6 +225,27 @@ die();
         return $this->render('management');
     }
 
+     /***
+     * Signup or creating user.
+     */
+     public function actionSignup()
+    {
+        if(Yii::$app->user->can('Administrator'))
+            {
+                $model = new SignupForm();
+                if ($model->load(Yii::$app->request->post())) {
+                    if ($user = $model->signup()) {
+                       return $this->redirect(['user/index']);
+                    }          
+                }
+                return $this->render('signup', [
+                    'model' => $model,
+                ]);
+            } else {
+            throw new ForbiddenHttpException(Yii::t('yii', "Sorry, you currently don't have privilege to this action."));
+        }       
+    }    
+
     /**
      * Login action.
      *
@@ -195,7 +259,8 @@ die();
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            //return $this->goBack();
+            return $this->render('management');
         }
 
         $model->password = '';
@@ -232,7 +297,12 @@ die();
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        $searchModel = new SourceMessageSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('home', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
